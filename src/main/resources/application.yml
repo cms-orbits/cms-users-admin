@@ -1,0 +1,65 @@
+server:
+  contextPath: /app
+  port: 8080
+spring:
+  application:
+    name: users
+  #autoconfigure:
+    #exclude:
+      #- org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      #- org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      #- org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  data:
+    rest:
+      base-path: /api
+  profiles.active: development
+  jmx:
+    enabled: false
+
+mailJet:
+  fromEmail: notify@4dx.gt
+  fromName: notify-4dx
+  apiKey: 3167858768cbee334ea7284b34645628
+  apiSecret: 4e06691d4a863a167c4dfe2959798c0b
+  
+security:
+  oauth2:
+    client:
+      client-id: 6ffb4e93-928f-4c45-b511-9d891cf71d15
+      client-secret: AMLTSUVtxp0inalm5tFCG6mE70bIftvmfvve0wVBVnxPGsw2gRFWD-da-W0NzIJPQ2U2GJ9ck8YDCiTQe8U1l9k
+      access-token-uri: http://localhost:8080/openid-connect-server-webapp/token
+      user-authorization-uri: http://localhost:8080/openid-connect-server-webapp/authorize
+      tokenName: access_token
+      authentication-scheme: header
+      client-authentication-scheme: header
+    resource:
+      token-info-uri: http://localhost:8080/openid-connect-server-webapp/token
+      user-info-uri: http://localhost:8080/openid-connect-server-webapp/userinfo  
+
+---
+spring:
+  profiles: development
+  db-one:
+    datasource:
+      url: jdbc:postgresql://192.168.187.129:5432/cmsdb
+      username: postgres
+      password: alex77
+      driver-class-name:  org.postgresql.Driver
+      test-on-borrow: false
+      validation-query: SELECT 1  
+      hibernate:
+        #default_catalog: danos
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show_sql: true
+        auditable: true
+        envers:
+          default_catalog: cmsdb
+          storeDataAtDelete : true
+          #default_schema : danos
+        ejb:
+          naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        hbm2ddl:
+          auto: update
+              #create-drop, validate, update
