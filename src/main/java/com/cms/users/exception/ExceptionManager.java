@@ -1,4 +1,4 @@
-package com.cms.users.ws.exceptions;
+package com.cms.users.exception;
 
 import java.util.HashMap;
 import java.util.Map;
