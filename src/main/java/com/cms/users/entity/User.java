@@ -5,10 +5,21 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
+
+/**
+* The persistent class for the USERS database table.
+* 
+*/
 @Entity
+@EntityListeners(UserBase.class)
 @Table(name="USERS")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -16,17 +27,9 @@ public class User implements Serializable {
 	public User() {
 	}
 	
-	
-//			id 						integer 			NOT NULL    nextval('users_id_seq'::regclass) 	[pk] 
-//			first_name 				character varying 	NOT NULL
-//			last_name 				character varying 	NOT NULL
-//			username 				character varying 	NOT Null										[check][uniq]
-//			password 				character varying 	NOT NULL
-//			email 					character varying 	
-//			timezone 				character varying 	
-//			preferred_languages 	character varying 	NOT NULL
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
+    @SequenceGenerator(sequenceName = "users_id_seq", allocationSize = 1, name = "USER_SEQ")
 	private long id;
 	
 	@Column(name="first_name")
@@ -109,5 +112,5 @@ public class User implements Serializable {
 	public void setPreferredLanguages(String preferredLanguages) {
 		this.preferredLanguages = preferredLanguages;
 	}
-	
+
 }

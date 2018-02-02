@@ -171,6 +171,11 @@
 			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.social</groupId>
+		    <artifactId>spring-social-facebook</artifactId>
+		</dependency>
 
 	</dependencies>
 

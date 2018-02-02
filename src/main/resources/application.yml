@@ -16,32 +16,12 @@ spring:
   jmx:
     enabled: false
 
-mailJet:
-  fromEmail: notify@4dx.gt
-  fromName: notify-4dx
-  apiKey: 3167858768cbee334ea7284b34645628
-  apiSecret: 4e06691d4a863a167c4dfe2959798c0b
-  
-security:
-  oauth2:
-    client:
-      client-id: 6ffb4e93-928f-4c45-b511-9d891cf71d15
-      client-secret: AMLTSUVtxp0inalm5tFCG6mE70bIftvmfvve0wVBVnxPGsw2gRFWD-da-W0NzIJPQ2U2GJ9ck8YDCiTQe8U1l9k
-      access-token-uri: http://localhost:8080/openid-connect-server-webapp/token
-      user-authorization-uri: http://localhost:8080/openid-connect-server-webapp/authorize
-      tokenName: access_token
-      authentication-scheme: header
-      client-authentication-scheme: header
-    resource:
-      token-info-uri: http://localhost:8080/openid-connect-server-webapp/token
-      user-info-uri: http://localhost:8080/openid-connect-server-webapp/userinfo  
-
 ---
 spring:
   profiles: development
   db-one:
     datasource:
-      url: jdbc:postgresql://192.168.187.129:5432/cmsdb
+      url: jdbc:postgresql://192.168.187.130:5432/cmsdb
       username: postgres
       password: alex77
       driver-class-name:  org.postgresql.Driver
