@@ -1,0 +1,45 @@
+server:
+  contextPath: /app
+  port: 8080
+spring:
+  application:
+    name: users
+  #autoconfigure:
+    #exclude:
+      #- org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      #- org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      #- org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  data:
+    rest:
+      base-path: /api
+  profiles.active: development
+  jmx:
+    enabled: false
+
+---
+spring:
+  profiles: development
+  db-one:
+    datasource:
+      url: jdbc:postgresql://192.168.187.130:5432/cmsdb
+      username: postgres
+      password: alex77
+      driver-class-name:  org.postgresql.Driver
+      test-on-borrow: false
+      validation-query: SELECT 1  
+      hibernate:
+        #default_catalog: danos
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show_sql: true
+        auditable: true
+        envers:
+          default_catalog: cmsdb
+          storeDataAtDelete : true
+          #default_schema : danos
+        ejb:
+          naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        hbm2ddl:
+          auto: update
+              #create-drop, validate, update
