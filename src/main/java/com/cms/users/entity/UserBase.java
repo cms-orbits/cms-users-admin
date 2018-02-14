@@ -35,8 +35,10 @@ public class UserBase {
 		 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 		
 		 byte[] encrypted = cipher.doFinal(input.getBytes());
-		 
-		 newPassword = Base64.encodeBase64String(encrypted);
+		 byte[] c = new byte[initVector.getBytes("UTF-8").length + encrypted.length];
+		 System.arraycopy(initVector.getBytes("UTF-8"), 0, c, 0, initVector.getBytes("UTF-8").length);
+		 System.arraycopy(encrypted, 0, c, initVector.getBytes("UTF-8").length, encrypted.length);
+		 newPassword = Base64.encodeBase64String(c);
 		 
 		 log.debug("Listening User Pre Persist :", newPassword);
 		    
@@ -45,7 +47,7 @@ public class UserBase {
             log.debug("Listening User Pre Persist :", e.getMessage());
         }
 		
-		user.setPassword(newPassword);
+		user.setPassword("plaintext:"+user.getPassword());
 	}
 	
 	public byte[] getRandomKey() {

@@ -44,21 +44,4 @@ public class UserImpl implements UserInt {
 		User e = repo.save(user);
 		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
-
-	@Override
-	public ResponseEntity<ResponseTransfer> doCV(ResponseTransfer file, HttpServletRequest request, HttpServletResponse response)
-		throws ExceptionInternalError {
-		System.out.print(file.getFilename());
-			
-        try {
-            // Get the file and save it locally
-            Path path = Paths.get(UPLOADED_FOLDER + file.getFilename());
-            Files.write(path, file.getFile());
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		
-		return new ResponseEntity<>(file, HttpStatus.CREATED);
-	}
 }

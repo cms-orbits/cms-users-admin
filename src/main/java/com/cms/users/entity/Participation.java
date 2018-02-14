@@ -29,22 +29,22 @@ public class Participation {
     @SequenceGenerator(sequenceName = "participations_id_seq", allocationSize = 1, name = "USER_SEQ")
 	private long id;
 	
-	private String ip;
+	//private PGcidr ip;
 	
 	private @Column(name="starting_time")
 	Timestamp  startingTime;
 	
-	@Column(name="delay_time")
-	private Time delayTime;
+	//@Column(name="delay_time")
+	//private Time delayTime;
 	
-	@Column(name="extra_time")
-	private Time extraTime;
+	//@Column(name="extra_time")
+	//private Time extraTime;
 	
 	private String password;
 	
-	private String hidden;
+	private boolean hidden;
 	
-	private String unrestricted;
+	private boolean unrestricted;
 	
 	@Column(name="contest_id")
 	private Long contestId;
@@ -63,13 +63,13 @@ public class Participation {
 		this.id = id;
 	}
 
-	public String getIp() {
+	/*public PGcidr getIp() {
 		return ip;
 	}
 
-	public void setIp(String ip) {
+	public void setIp(PGcidr ip) {
 		this.ip = ip;
-	}
+	}*/
 
 	public Timestamp getStartingTime() {
 		return startingTime;
@@ -79,7 +79,7 @@ public class Participation {
 		this.startingTime = startingTime;
 	}
 
-	public Time getDelayTime() {
+	/*public Time getDelayTime() {
 		return delayTime;
 	}
 
@@ -93,7 +93,7 @@ public class Participation {
 
 	public void setExtraTime(Time extraTime) {
 		this.extraTime = extraTime;
-	}
+	}*/
 
 	public String getPassword() {
 		return password;
@@ -103,19 +103,19 @@ public class Participation {
 		this.password = password;
 	}
 
-	public String getHidden() {
+	public boolean getHidden() {
 		return hidden;
 	}
 
-	public void setHidden(String hidden) {
+	public void setHidden(boolean hidden) {
 		this.hidden = hidden;
 	}
 
-	public String getUnrestricted() {
+	public boolean getUnrestricted() {
 		return unrestricted;
 	}
 
-	public void setUnrestricted(String unrestricted) {
+	public void setUnrestricted(boolean unrestricted) {
 		this.unrestricted = unrestricted;
 	}
 
