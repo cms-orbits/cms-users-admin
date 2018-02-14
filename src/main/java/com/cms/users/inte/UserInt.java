@@ -6,12 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cms.users.entity.ResponseTransfer;
 import com.cms.users.entity.User;
 import com.cms.users.exception.ExceptionInternalError;
 
@@ -44,6 +47,18 @@ public interface UserInt {
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
 	ResponseEntity<User> doCreate(@RequestBody User user, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError;
+	
 
-
+	/**
+	 *
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ErrorInternoException
+	 */
+	@Transactional(readOnly = false)
+	@RequestMapping(value = { "", "/file" },method= RequestMethod.POST)
+	ResponseEntity<ResponseTransfer> doCV(@RequestBody ResponseTransfer file, HttpServletRequest request, HttpServletResponse response)
+			throws ExceptionInternalError;
 }
