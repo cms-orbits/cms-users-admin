@@ -37,6 +37,11 @@ public class UserExtraInformation implements Serializable {
 	
 	private String study;
 	
+	private String work;
+	
+	@Column(name="want_work")
+	private String wantWork;
+
 	@Column(name="user_id")
 	private long userId;
 	
@@ -72,4 +77,19 @@ public class UserExtraInformation implements Serializable {
 		this.userId = userId;
 	}	
 	
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
+	public String getWantWork() {
+		return wantWork;
+	}
+
+	public void setWantWork(String wantWork) {
+		this.wantWork = wantWork;
+	}	
 }
