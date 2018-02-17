@@ -1,7 +1,7 @@
 package com.cms.users.entity;
 
 import java.security.SecureRandom;
-
+import com.cms.users.SecurityProperties;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,9 +9,13 @@ import javax.persistence.PrePersist;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserBase {
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(Participation.class);
+	
+	@Autowired
+	private SecurityProperties properties;
 	
 	
 	/*
@@ -25,8 +29,8 @@ public class UserBase {
 		
 		try {
 		String input = user.getPassword();
-		String key = "8e045a51e4b102ea803c06f92841a1fb";
-		String initVector = "RandomInitVector";//Random Key
+		String key = properties.getKey();
+		String initVector = properties.getInitVector();
 		
 		 IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
 		 SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
