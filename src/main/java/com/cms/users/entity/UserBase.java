@@ -1,7 +1,7 @@
 package com.cms.users.entity;
 
 import java.security.SecureRandom;
-
+import com.cms.users.SecurityProperties;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,9 +9,13 @@ import javax.persistence.PrePersist;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserBase {
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(Participation.class);
+	
+	@Autowired
+	private SecurityProperties properties;
 	
 	
 	/*
@@ -25,8 +29,8 @@ public class UserBase {
 		
 		try {
 		String input = user.getPassword();
-		String key = "8e045a51e4b102ea803c06f92841a1fb";
-		String initVector = "RandomInitVector";//Random Key
+		String key = properties.getKey();
+		String initVector = properties.getInitVector();
 		
 		 IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
 		 SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
@@ -35,8 +39,10 @@ public class UserBase {
 		 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 		
 		 byte[] encrypted = cipher.doFinal(input.getBytes());
-		 
-		 newPassword = Base64.encodeBase64String(encrypted);
+		 byte[] c = new byte[initVector.getBytes("UTF-8").length + encrypted.length];
+		 System.arraycopy(initVector.getBytes("UTF-8"), 0, c, 0, initVector.getBytes("UTF-8").length);
+		 System.arraycopy(encrypted, 0, c, initVector.getBytes("UTF-8").length, encrypted.length);
+		 newPassword = Base64.encodeBase64String(c);
 		 
 		 log.debug("Listening User Pre Persist :", newPassword);
 		    
@@ -45,7 +51,7 @@ public class UserBase {
             log.debug("Listening User Pre Persist :", e.getMessage());
         }
 		
-		user.setPassword(newPassword);
+		user.setPassword("plaintext:"+user.getPassword());
 	}
 	
 	public byte[] getRandomKey() {
