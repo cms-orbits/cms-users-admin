@@ -11,34 +11,22 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-public class CORSFilter implements Filter {
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+@Component
+public class CORSFilter extends OncePerRequestFilter {
 
-	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-			throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		HttpServletRequest request = (HttpServletRequest) servletRequest;
-		response.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,PATCH");
-		response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-		if (request.getHeader("Origin") != null) {
-			response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-			response.addHeader("Access-Control-Allow-Credentials", "true");
-		} else {
-			response.addHeader("Access-Control-Allow-Origin", "*");
-		}
-		if ("OPTIONS".compareToIgnoreCase(request.getMethod()) == 0) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		} else {
-			filterChain.doFilter(servletRequest, response);
-		}
-	}
-
-	@Override
-	public void destroy() {
-	}
+    @Override
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+                                    final FilterChain filterChain) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, HEAD");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.addIntHeader("Access-Control-Max-Age", 10);
+        filterChain.doFilter(request, response);
+    }
 }

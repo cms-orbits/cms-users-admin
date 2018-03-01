@@ -13,6 +13,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 	User findByUsernameEquals(String username);
 	//User findByAccountEqualsOrSubEquals(String account,String sub);
 	
+	User findByEmailEquals(String email);
+	
 	@Query("select e from User e where e.id=?#{principal.user.id}")
 	User findByPrincipal();
 	

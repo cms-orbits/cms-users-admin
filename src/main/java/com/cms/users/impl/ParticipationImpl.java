@@ -31,7 +31,10 @@ public class ParticipationImpl implements ParticipationInt {
 	@Override
 	public ResponseEntity<Participation> doCreate(Participation participation, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError {
-		Participation e = repo.save(participation);
-		return new ResponseEntity<>(e, HttpStatus.CREATED);
+		
+		if (repo.exist(participation)==null)
+			participation = repo.save(participation);
+		
+		return new ResponseEntity<>(participation, HttpStatus.CREATED);
 	}
 }

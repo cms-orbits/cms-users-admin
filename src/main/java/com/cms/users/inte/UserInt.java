@@ -26,7 +26,6 @@ public interface UserInt {
 	 * @return
 	 * @throws ErrorInternoException
 	 */
-	
 	@RequestMapping(value = {"","/"},method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody  Iterable<User> getUsers();
 	
