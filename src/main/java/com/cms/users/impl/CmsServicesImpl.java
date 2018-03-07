@@ -71,7 +71,7 @@ public class CmsServicesImpl implements CmsServicesInt {
 			//Participation e = repoPartcipation.save(participation);
 		}
 		
-		userDb.setPassword(null);
+		//userDb.setPassword(null);
 		
 		return new ResponseEntity<>(userDb, HttpStatus.CREATED);
 	}

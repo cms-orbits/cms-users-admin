@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.hibernate.envers.strategy.ValidityAuditStrategy;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +20,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.cms.users.entity.EventPublisher;
 
 @Configuration
 @EnableTransactionManagement
@@ -106,4 +110,16 @@ public class Config {
 	public DataSource oneDataSource() {
 		return DataSourceBuilder.create().build();
 	}
+	
+
+	@Bean
+	public TopicExchange senderTopicExchange() {
+		return new TopicExchange("eventExchange");
+	}
+	
+	@Bean
+	public EventPublisher eventPublisher(RabbitTemplate rabbitTemplate, TopicExchange senderTopicExchange) {
+		return new EventPublisher(rabbitTemplate, senderTopicExchange);
+	}
+
 }
