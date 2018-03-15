@@ -1,5 +1,6 @@
 package com.cms.users.impl;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,14 +49,23 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	public ResponseEntity<ResponseTransfer> doCV(ResponseTransfer file, HttpServletRequest request, HttpServletResponse response)
 		throws ExceptionInternalError {
 		System.out.print(file.getFilename());
-			
+		FileOutputStream outFile = null;
+		
         try {
             // Get the file and save it locally
-            Path path = Paths.get(UPLOADED_FOLDER + file.getFilename());
-            Files.write(path, file.getFile());
+            //Path path = Paths.get(UPLOADED_FOLDER + file.getFilename());
+            outFile = new FileOutputStream(UPLOADED_FOLDER + file.getFilename());
+            outFile.write(file.getFile());
             
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+        	try {
+				outFile.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 		
 		return new ResponseEntity<>(file, HttpStatus.CREATED);

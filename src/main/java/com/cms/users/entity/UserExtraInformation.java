@@ -6,11 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,10 +23,10 @@ public class UserExtraInformation implements Serializable {
 	public UserExtraInformation() {
 	}
 	
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_EXTRA_INFO_SEQ")
     @SequenceGenerator(sequenceName = "user_extra_information_seq", allocationSize = 1, name = "USER_EXTRA_INFO_SEQ")
-	private long id;
+	private long id;*/
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthdate;
@@ -41,17 +37,22 @@ public class UserExtraInformation implements Serializable {
 	
 	@Column(name="want_work")
 	private String wantWork;
-
-	@Column(name="user_id")
-	private long userId;
 	
-	public long getId() {
+	@Id
+	@Column(name="user_id")
+	private long id;
+	
+	private byte[] cv;
+	
+	private String name;
+	
+	/*public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 
 	public Date getBirthdate() {
 		return birthdate;
@@ -69,12 +70,12 @@ public class UserExtraInformation implements Serializable {
 		this.study = study;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getId() {
+		return id;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(long id) {
+		this.id = id;
 	}	
 	
 	public String getWork() {
@@ -91,5 +92,22 @@ public class UserExtraInformation implements Serializable {
 
 	public void setWantWork(String wantWork) {
 		this.wantWork = wantWork;
-	}	
+	}
+
+	public byte[] getCv() {
+		return cv;
+	}
+
+	public void setCv(byte[] cv) {
+		this.cv = cv;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
