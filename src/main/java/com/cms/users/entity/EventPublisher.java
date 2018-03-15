@@ -24,5 +24,5 @@ public class EventPublisher {
     rabbitTemplate.convertAndSend(topicExchange.getName(), routingKey, message);
     
   }
-
+  
 }
