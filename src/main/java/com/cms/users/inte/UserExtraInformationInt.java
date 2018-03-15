@@ -15,7 +15,7 @@ import com.cms.users.entity.UserExtraInformation;
 import com.cms.users.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/user", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/api/user/extra", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface UserExtraInformationInt {
 	
 	/**
@@ -39,7 +39,7 @@ public interface UserExtraInformationInt {
 	 * @throws ErrorInternoException
 	 */
 	@Transactional(readOnly = false)
-	@RequestMapping(value = { "", "/extra" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
 	ResponseEntity<UserExtraInformation> doCreate(@RequestBody UserExtraInformation userextra, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError;
 	 
@@ -53,7 +53,7 @@ public interface UserExtraInformationInt {
 	 * @throws ErrorInternoException
 	 */
 	@Transactional(readOnly = false)
-	@RequestMapping(value = { "", "/file" },method= RequestMethod.POST)
+	@RequestMapping(value = { "", "/file" },method= RequestMethod.PUT)
 	ResponseEntity<ResponseTransfer> doCV(@RequestBody ResponseTransfer file, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError;
 }
