@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import com.cms.users.entity.EventPublisher;
 import com.cms.users.entity.ResponseTransfer;
 import com.cms.users.entity.UserExtraInformation;
 import com.cms.users.exception.ExceptionInternalError;
@@ -26,6 +28,10 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	 *
 	 */
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(UserExtraInformationImpl.class);
+	
+	@Autowired
+	EventPublisher eventPublisherService;
+	
 	@Autowired
 	private UserExtraInformationRepository repo;
 	private static String UPLOADED_FOLDER = "C:\\temp\\";
@@ -41,7 +47,7 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	public ResponseEntity<UserExtraInformation> doCreate(UserExtraInformation userextra, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError {
 		UserExtraInformation e = repo.save(userextra);
-		
+		eventPublisherService.sendMessage();
 		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
 

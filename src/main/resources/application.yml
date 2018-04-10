@@ -19,11 +19,7 @@ spring:
     key: 8e045a51e4b102ea803c06f92841a1fb
     init-vector: RandomInitVector
 #---
-rabbitmq:
-  host=localhost
-  port=5672
-  username=guest
-  password=guest
+
   
 ---
 spring:
@@ -52,3 +48,8 @@ spring:
         hbm2ddl:
           auto: update
               #create-drop, validate, update
+  rabbitmq:
+    host: 192.168.187.131
+    port: 5672
+    username: joel
+    password: joel1
