@@ -26,7 +26,7 @@ spring:
   profiles: development
   db-one:
     datasource:
-      url: jdbc:postgresql://192.168.187.131:5432/cmsdb
+      url: jdbc:postgresql://192.168.187.133:5432/cmsdb
       username: postgres
       password: alex77
       driver-class-name:  org.postgresql.Driver
@@ -49,7 +49,7 @@ spring:
           auto: update
               #create-drop, validate, update
   rabbitmq:
-    host: 192.168.187.131
+    host: 192.168.187.133
     port: 5672
     username: joel
     password: joel1
