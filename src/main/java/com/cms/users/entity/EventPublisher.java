@@ -10,6 +10,8 @@ public class EventPublisher {
   private final RabbitTemplate rabbitTemplate;
 
   private final TopicExchange topicExchange;
+  
+  private boolean statusMessage;
 
 
   @Autowired
@@ -19,10 +21,15 @@ public class EventPublisher {
   }
 
   public void sendMessage() {
+	this.statusMessage = false;
 	String routingKey = "customer.created";
 	String message = "customer created";
     rabbitTemplate.convertAndSend(topicExchange.getName(), routingKey, message);
-    
+    this.statusMessage = true;
   }
-
+  
+  public boolean statusMessage() {
+	  return this.statusMessage;
+  }
+  
 }

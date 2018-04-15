@@ -2,9 +2,6 @@ package com.cms.users.impl;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import com.cms.users.entity.EventPublisher;
 import com.cms.users.entity.ResponseTransfer;
 import com.cms.users.entity.UserExtraInformation;
 import com.cms.users.exception.ExceptionInternalError;
@@ -26,6 +25,10 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	 *
 	 */
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(UserExtraInformationImpl.class);
+	
+	@Autowired
+	EventPublisher eventPublisherService;
+	
 	@Autowired
 	private UserExtraInformationRepository repo;
 	private static String UPLOADED_FOLDER = "C:\\temp\\";
@@ -41,7 +44,7 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	public ResponseEntity<UserExtraInformation> doCreate(UserExtraInformation userextra, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError {
 		UserExtraInformation e = repo.save(userextra);
-		
+		eventPublisherService.sendMessage();
 		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
 
