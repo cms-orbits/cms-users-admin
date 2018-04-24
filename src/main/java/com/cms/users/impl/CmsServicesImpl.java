@@ -15,12 +15,15 @@ import com.cms.users.exception.ExceptionInternalError;
 import com.cms.users.inte.CmsServicesInt;
 import com.cms.users.repo.ParticipationRepository;
 import com.cms.users.repo.UserRepository;
+import javax.servlet.http.Cookie;
+import com.jossemargt.cookietwist.CookiePot;
 
 @Component
 public class CmsServicesImpl implements CmsServicesInt {
 	@Autowired
 	private UserRepository repoUser;
 	private ParticipationRepository repoPartcipation;
+	
 	
 	
 	@Override
@@ -42,7 +45,7 @@ public class CmsServicesImpl implements CmsServicesInt {
 		
 		return new ResponseEntity<>(us, HttpStatus.CREATED);
 	}
-
+	
 
 	@Override
 	public ResponseEntity<User> socialRegistration(User user, HttpServletRequest request, HttpServletResponse response)
@@ -76,7 +79,22 @@ public class CmsServicesImpl implements CmsServicesInt {
 		return new ResponseEntity<>(userDb, HttpStatus.CREATED);
 	}
 	
-	public boolean userExists() {
+	public boolean userLogin() {
+		final String mySecretKey = "like a ninja!";
+
+	    // Instantiate your Cookie Pot with your secret key
+	    //CookiePot tornadoPot = new CookiePot(mySecretKey);
+
+	    // Generate a Tornado Signed Secure Cookie (with signing V2 by default);
+	    //Cookie secureCookie = tornadoPot.encodeCookie(new Cookie("the_name", "a value"));
+		Cookie secureCookie = new Cookie("the_name", "a value");
+	    String hashedValue = secureCookie.getValue();
+
+	    // Generate a plain/flat cookie from a  hashed/signed one
+	    //Cookie flatCookie = tornadoPot.decodeCookie(secureCookie);
+	    Cookie flatCookie = new Cookie("the_name", "a value");
+	    String flatValue = flatCookie.getValue();
+	    
 		return true;
 	}
 
