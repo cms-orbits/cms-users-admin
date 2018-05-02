@@ -1,5 +1,6 @@
 package com.cms.users.impl;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,14 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.cms.service.utilities.Crypto;
-import com.cms.users.entity.Participation;
+import com.cms.users.entity.CookieGenerator;
 import com.cms.users.entity.User;
 import com.cms.users.exception.ExceptionInternalError;
 import com.cms.users.inte.CmsServicesInt;
 import com.cms.users.repo.ParticipationRepository;
 import com.cms.users.repo.UserRepository;
-import javax.servlet.http.Cookie;
-import com.jossemargt.cookietwist.CookiePot;
 
 @Component
 public class CmsServicesImpl implements CmsServicesInt {
@@ -24,7 +23,8 @@ public class CmsServicesImpl implements CmsServicesInt {
 	private UserRepository repoUser;
 	private ParticipationRepository repoPartcipation;
 	
-	
+	@Autowired
+	CookieGenerator cookieGenerator;
 	
 	@Override
 	public ResponseEntity<User> login (User user, HttpServletRequest request, HttpServletResponse response)
@@ -41,18 +41,17 @@ public class CmsServicesImpl implements CmsServicesInt {
 		if(Crypto.isValidPassword(Crypto.encryptPlain(user.getPassword()), us)!= true)
 			us = null;
 		
-		us.setPassword(null);
+		//us.setPassword(null);
 		
 		return new ResponseEntity<>(us, HttpStatus.CREATED);
 	}
 	
-
 	@Override
 	public ResponseEntity<User> socialRegistration(User user, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError {
 		User userDb = repoUser.findByEmailEquals(user.getEmail());
-		//Verify if user exists
 
+		//Verify if user exist
 		if (userDb == null) {
 			//Default password
 			user.setPassword("uZd3dj0$cpeuw12pqz");
@@ -74,28 +73,10 @@ public class CmsServicesImpl implements CmsServicesInt {
 			//Participation e = repoPartcipation.save(participation);
 		}
 		
+		cookieGenerator.generateCookie(user.getUsername(), user.getPassword());
+		
 		//userDb.setPassword(null);
 		
 		return new ResponseEntity<>(userDb, HttpStatus.CREATED);
 	}
-	
-	public boolean userLogin() {
-		final String mySecretKey = "like a ninja!";
-
-	    // Instantiate your Cookie Pot with your secret key
-	    //CookiePot tornadoPot = new CookiePot(mySecretKey);
-
-	    // Generate a Tornado Signed Secure Cookie (with signing V2 by default);
-	    //Cookie secureCookie = tornadoPot.encodeCookie(new Cookie("the_name", "a value"));
-		Cookie secureCookie = new Cookie("the_name", "a value");
-	    String hashedValue = secureCookie.getValue();
-
-	    // Generate a plain/flat cookie from a  hashed/signed one
-	    //Cookie flatCookie = tornadoPot.decodeCookie(secureCookie);
-	    Cookie flatCookie = new Cookie("the_name", "a value");
-	    String flatValue = flatCookie.getValue();
-	    
-		return true;
-	}
-
 }

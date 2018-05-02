@@ -21,6 +21,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.cms.users.entity.CookieGenerator;
 import com.cms.users.entity.EventPublisher;
 
 @Configuration
@@ -121,5 +122,10 @@ public class Config {
 	public EventPublisher eventPublisher(RabbitTemplate rabbitTemplate, TopicExchange senderTopicExchange) {
 		return new EventPublisher(rabbitTemplate, senderTopicExchange);
 	}
+	
+	@Bean
+    public CookieGenerator cookieGenerator() {
+        return new CookieGenerator();
+    }
 
 }
