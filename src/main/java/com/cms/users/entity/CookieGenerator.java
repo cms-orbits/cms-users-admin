@@ -11,12 +11,14 @@ import java.util.Formatter;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.Cookie;
+
+import com.jossemargt.cookietwist.tornado.transform.TornadoCookieCodec;
+import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 
 import net.razorvine.pickle.Opcodes;
 
 public class CookieGenerator {
-	private final String prefix;
-	private final String suffix;
 	private final String cookieSecret = "8e045a51e4b102ea803c06f92841a1fb";
 	private final String b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
 
@@ -63,8 +65,12 @@ public class CookieGenerator {
 	    Formatter formatter = new Formatter();
 
 	    formatter.format("%d:%s", token.length(), token);
-
-	    return formatter.toString();
+	    
+	    String fm = formatter.toString();
+	    
+	    formatter.close();
+	    
+	    return fm; 
 	}
 	
 	String tornadoCreateSignedValue(String secret, String name, String value, String timestamp) {
@@ -89,15 +95,23 @@ public class CookieGenerator {
 	    return toSignStr + signature;
 	}
 	
-	public CookieGenerator(String prefix, String suffix) {
-		this.prefix = prefix;
-		this.suffix = suffix;
-
+	public CookieGenerator(String user, String password) {
 		long epochNow = Instant.now().getEpochSecond();
-		// String cookieCoder =
-		// V2TornadoCookieCodec.builder().withTimestamp(epochNow).withSecretKey(b64CookieSecret).build();
-		// String signedCookie = cookieCoder.encodeCookie(new Cookie
-		// ("${contestSlug}_login" , pickledHashStr ))
+		
+		byte[] pickledHashBytes = pickle0dumpsCMS(user, password, String.valueOf(epochNow));
+		String pickledHashStr = new String(pickledHashBytes, StandardCharsets.UTF_8);
+		
+		//String cookieValue = tornadoCreateSignedValue(b64CookieSecret, "con_test_login", Base64.getEncoder().encodeToString(pickledHashBytes), String.valueOf(epochNow));
+
+		// -------------- Using Tornado secure cookies port
+		TornadoCookieCodec cookieCoder = null;
+		try {
+			cookieCoder = V2TornadoCookieCodec.builder().withTimestamp(epochNow).withSecretKey(b64CookieSecret).build();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		}
+		
+		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie ("${contestSlug}_login" , pickledHashStr ));		
 	}
 
 }
