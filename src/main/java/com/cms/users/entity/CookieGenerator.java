@@ -19,6 +19,7 @@ import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 import net.razorvine.pickle.Opcodes;
 
 public class CookieGenerator {
+	private final String contestSlug = "con_test";
 	private final String cookieSecret = "8e045a51e4b102ea803c06f92841a1fb";
 	private final String b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
 
@@ -31,7 +32,11 @@ public class CookieGenerator {
 		for (byte b : bytes) {
 			formatter.format("%02x", b);
 		}
-		return formatter.toString();
+		String fm = formatter.toString();
+
+		formatter.close();
+
+		return fm;
 	}
 
 	String calculateHMACSHA256(byte[] key, byte[] data)
@@ -130,7 +135,7 @@ public class CookieGenerator {
 			e.printStackTrace();
 		}
 
-		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie("contestSlug_login", pickledHashStr));
+		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie(contestSlug + "_login", pickledHashStr));
 		System.out.println(signedCookie.getValue());
 	}
 }
