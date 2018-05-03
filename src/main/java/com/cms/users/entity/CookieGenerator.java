@@ -130,6 +130,7 @@ public class CookieGenerator {
 			e.printStackTrace();
 		}
 
-		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie("${contestSlug}_login", pickledHashStr));
+		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie("contestSlug_login", pickledHashStr));
+		System.out.println(signedCookie.getValue());
 	}
 }
