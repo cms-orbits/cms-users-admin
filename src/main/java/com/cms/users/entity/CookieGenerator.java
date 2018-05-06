@@ -13,17 +13,24 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cms.users.ApplicationProperties;
 import com.jossemargt.cookietwist.tornado.transform.TornadoCookieCodec;
 import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 
 import net.razorvine.pickle.Opcodes;
 
+
 public class CookieGenerator {
 	private final String contestSlug = "con_test";
-	private final String cookieSecret = "8e045a51e4b102ea803c06f92841a1fb";
-	private final String b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
+	private String b64CookieSecret;
+	@Autowired
+	private ApplicationProperties appProperties;
 
 	public CookieGenerator() {
+		//this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
+		//System.out.println(appProperties.getCookieSecret());
 	}
 
 	String toHexString(byte[] bytes) {
@@ -118,6 +125,8 @@ public class CookieGenerator {
 	}
 
 	public void generateCookie(String user, String password) {
+		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
+		System.out.println(this.appProperties.getUrlRedirect());
 		long epochNow = Instant.now().getEpochSecond();
 
 		byte[] pickledHashBytes = pickle0dumpsCMS(user, password, String.valueOf(epochNow));
