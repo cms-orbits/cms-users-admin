@@ -4,22 +4,19 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.cms.users.SecurityProperties;
+
 import com.cms.users.entity.Participation;
 import com.cms.users.entity.User;
 
 
 public class Crypto {
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(Participation.class);
-	
-	@Autowired
-	private static SecurityProperties config;
 	
 	/*
 	 * 
@@ -30,7 +27,7 @@ public class Crypto {
 		
 		try {
 			String pt = password;
-			String key = config.getKey();
+			String key = "";//config.getKey();
 			byte[] ivKey;
 			int ivl = 16;
 

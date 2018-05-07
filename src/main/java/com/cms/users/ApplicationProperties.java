@@ -17,7 +17,6 @@ public class ApplicationProperties {
 	}
 
 	public void setCookieSecret(String cookieSecret) {
-		//this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
 		this.cookieSecret = cookieSecret;
 	}
 	
@@ -26,7 +25,6 @@ public class ApplicationProperties {
 	}
 
 	public void setUrlRedirect(String urlRedirect) {
-		//this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
 		this.urlRedirect = urlRedirect;
 	}
 }
