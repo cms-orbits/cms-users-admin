@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.cms.users.entity.User;
 import com.cms.users.exception.ExceptionInternalError;
 
@@ -33,6 +35,4 @@ public interface CmsServicesInt {
 	public ResponseEntity<User> socialRegistration(@RequestBody User user, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError;
 	
-	
-
 }

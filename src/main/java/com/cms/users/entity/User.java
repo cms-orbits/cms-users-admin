@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 
 
@@ -32,6 +36,9 @@ public class User implements Serializable {
     @SequenceGenerator(sequenceName = "users_id_seq", allocationSize = 1, name = "USER_SEQ")
 	private long id;
 	
+	@Transient
+	private String redirect;
+
 	@Column(name="first_name")
 	private String firstName;
 
@@ -81,6 +88,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public String getPassword() {
 		return password;
 	}
@@ -111,6 +119,14 @@ public class User implements Serializable {
 
 	public void setPreferredLanguages(String preferredLanguages) {
 		this.preferredLanguages = preferredLanguages;
+	}
+	
+	public String getRedirect() {
+		return redirect;
+	}
+
+	public void setRedirect(String redirect) {
+		this.redirect = redirect;
 	}
 
 }

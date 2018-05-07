@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cms.service.utilities.Crypto;
 import com.cms.users.ApplicationProperties;
@@ -55,7 +56,8 @@ public class CmsServicesImpl implements CmsServicesInt {
 		
 		cookieGenerator.generateCookie(user.getUsername(), user.getPassword());
 		
-		response.setHeader("Location", projectUrl);
+		//return new ModelAndView("redirect:" + appProperties.getUrlRedirect());
+		userDb.setRedirect(appProperties.getUrlRedirect()); 
 		return new ResponseEntity<>(userDb, HttpStatus.CREATED);
 	}
 }
