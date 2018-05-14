@@ -19,7 +19,7 @@ spring:
     key: 8e045a51e4b102ea803c06f92841a1fb
     init-vector: RandomInitVector
 cookie-secret: 8e045a51e4b102ea803c06f92841a1fb
-url-redirect: http://localhost:3000/profile
+url-redirect-login: http://192.168.187.134:8888/
 #---
 
   

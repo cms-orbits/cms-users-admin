@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.Formatter;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
@@ -21,37 +22,20 @@ import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 
 import net.razorvine.pickle.Opcodes;
 
-
 public class CookieGenerator {
-	private final String contestSlug = "con_test";
+	private String contestSlug = "new_contest1";
 	private String b64CookieSecret;
 	@Autowired
 	private ApplicationProperties appProperties;
+	private TornadoCookieCodec cookieCoder;
 
 	public CookieGenerator() {
-		//this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(cookieSecret));
-		//System.out.println(appProperties.getCookieSecret());
 	}
 
-	String toHexString(byte[] bytes) {
-		Formatter formatter = new Formatter();
-
-		for (byte b : bytes) {
-			formatter.format("%02x", b);
-		}
-		String fm = formatter.toString();
-
-		formatter.close();
-
-		return fm;
-	}
-
-	String calculateHMACSHA256(byte[] key, byte[] data)
-			throws SignatureException, NoSuchAlgorithmException, InvalidKeyException {
-		SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
-		Mac mac = Mac.getInstance("HmacSHA256");
-		mac.init(signingKey);
-		return toHexString(mac.doFinal(data));
+	@PostConstruct
+	public void populateMovieCache() {
+		//Get app properties
+		
 	}
 
 	private byte[] utf8Bytes(String data) {
@@ -65,18 +49,21 @@ public class CookieGenerator {
 			bos.write(Opcodes.MARK);
 			bos.write(Opcodes.UNICODE);
 			bos.write(utf8Bytes(username));
+			System.out.println(username);
 			bos.write(newLine);
 			bos.write(Opcodes.PUT);
 			bos.write(utf8Bytes("0"));
 			bos.write(newLine);
 			bos.write(Opcodes.UNICODE);
-			bos.write(utf8Bytes("plaintext:${password}"));
+			bos.write(utf8Bytes(password));
+			System.out.println(password);
 			bos.write(newLine);
 			bos.write(Opcodes.PUT);
 			bos.write(utf8Bytes("1"));
 			bos.write(newLine);
 			bos.write(Opcodes.FLOAT);
 			bos.write(utf8Bytes(timestamp));
+			System.out.println(timestamp);
 			bos.write(newLine);
 			bos.write(Opcodes.TUPLE);
 			bos.write(Opcodes.PUT);
@@ -90,61 +77,28 @@ public class CookieGenerator {
 		return bos.toByteArray();
 	}
 
-	String tornadoSignedValueField(String token) {
-		Formatter formatter = new Formatter();
-
-		formatter.format("%d:%s", token.length(), token);
-
-		String fm = formatter.toString();
-
-		formatter.close();
-
-		return fm;
-	}
-
-	String tornadoCreateSignedValue(String secret, String name, String value, String timestamp) {
-		String signature = "";
-		String[] toSign = { "0", timestamp, name, value };
-
-		for (String s : toSign) {
-			s = tornadoSignedValueField(s);
-		}
-
-		toSign[0] = "2";
-		toSign[toSign.length] = "";
-
-		String toSignStr = String.join("|", toSign);
-
-		try {
-			signature = calculateHMACSHA256(utf8Bytes(secret), utf8Bytes(toSignStr));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return toSignStr + signature;
-	}
-
-	public void generateCookie(String user, String password) {
-		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
-		System.out.println(this.appProperties.getUrlRedirect());
+	public Cookie generateCookie(String user, String password) {
 		long epochNow = Instant.now().getEpochSecond();
-
+		
 		byte[] pickledHashBytes = pickle0dumpsCMS(user, password, String.valueOf(epochNow));
+		
 		String pickledHashStr = new String(pickledHashBytes, StandardCharsets.UTF_8);
-
-		// String cookieValue = tornadoCreateSignedValue(b64CookieSecret,
-		// "con_test_login", Base64.getEncoder().encodeToString(pickledHashBytes),
-		// String.valueOf(epochNow));
-
-		// -------------- Using Tornado secure cookies port
-		TornadoCookieCodec cookieCoder = null;
+		
+		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
+		
+		System.out.println("--------- ");
+		System.out.println(pickledHashStr);
+		System.out.println("--------- ");
+		
 		try {
 			cookieCoder = V2TornadoCookieCodec.builder().withTimestamp(epochNow).withSecretKey(b64CookieSecret).build();
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
 		}
-
+		
 		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie(contestSlug + "_login", pickledHashStr));
-		System.out.println(signedCookie.getValue());
+		Cookie ck = new Cookie(signedCookie.getName(), "\"" + signedCookie.getValue() + "\"");
+		//System.out.println(cookieCoder.);
+		return ck;
 	}
 }

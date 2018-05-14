@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
 	private String cookieSecret;
 	
-	private String urlRedirect;
+	private String urlRedirectLogin;
 	
 	public String getCookieSecret() {
 		return cookieSecret;
@@ -21,10 +21,10 @@ public class ApplicationProperties {
 	}
 	
 	public String getUrlRedirect() {
-		return this.urlRedirect;
+		return this.urlRedirectLogin;
 	}
 
-	public void setUrlRedirect(String urlRedirect) {
-		this.urlRedirect = urlRedirect;
+	public void setUrlRedirectLogin(String urlRedirectLogin) {
+		this.urlRedirectLogin = urlRedirectLogin;
 	}
 }
