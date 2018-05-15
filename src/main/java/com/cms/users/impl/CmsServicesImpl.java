@@ -51,49 +51,28 @@ public class CmsServicesImpl implements CmsServicesInt {
 			Map<String, String> queryParameters,
 			MultiValueMap<String, String> multiMap,
 			HttpServletResponse response) throws ExceptionInternalError {
-		// TODO Auto-generated method stub
-        System.out.println(multiMap.get("firstName"));
-        System.out.println(multiMap.get("lastName"));
-        System.out.println(multiMap.get("username"));
-        System.out.println(multiMap.get("email").get(0));
-        
+		
         User userDb = repoUser.findByEmailEquals(multiMap.get("email").get(0));
 
 		//Verify if user exist
 		if (userDb == null) {
 			User user = new User();
+			user.setFirstName(multiMap.get("firstName").get(0));
+			user.setLastName(multiMap.get("lastName").get(0));
+		    user.setUserame(multiMap.get("username").get(0));
+		    user.setEmail(multiMap.get("email").get(0));
 			user.setTimezone("");
 			user.setPreferredLanguages("");
 			//Default password
 			user.setPassword("uZd3dj0$cpeuw12pqz");
 			userDb = repoUser.save(user);
 		}
-		//System.out.println(userDb.getPassword().replace("plaintext:", ""));
+		
 		Cookie cookie = cookieGenerator.generateCookie(userDb.getUsername(), userDb.getPassword());
 		//cookie.setMaxAge(60 * 24 * 3600);
-		//cookie.setPath("/");
+		cookie.setDomain(appProperties.getUrlCmsDomain());
+		cookie.setPath("/");
 		response.addCookie(cookie);
-		return new ModelAndView("redirect:" + appProperties.getUrlRedirect());
+		return new ModelAndView("redirect:" + appProperties.getUrlCmsDomain() + ":" + appProperties.getCmsPort());
 	}
-	
-	/*@Override
-	public ResponseEntity<User> socialRegistration(User user, HttpServletRequest request, HttpServletResponse response)
-			throws ExceptionInternalError {
-		User userDb = repoUser.findByEmailEquals(user.getEmail());
-
-		//Verify if user exist
-		if (userDb == null) {
-			//Default password
-			user.setPassword("uZd3dj0$cpeuw12pqz");
-			userDb = repoUser.save(user);
-		}
-		
-		cookieGenerator.generateCookie(user.getUsername(), user.getPassword());
-		
-		//return new ModelAndView("redirect:" + appProperties.getUrlRedirect());
-		//userDb.setRedirect(appProperties.getUrlRedirect()); 
-		return new ResponseEntity<>(userDb, HttpStatus.CREATED);
-	}*/
-
-	
 }

@@ -36,10 +36,6 @@ public interface CmsServicesInt {
 	/*
 	 * Registration and login with social accounts
 	 * */
-	//@Transactional(readOnly = false)
-	//@RequestMapping(value = {"","/register"},method= RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	//public ResponseEntity<User> socialRegistration(@RequestBody User user, HttpServletRequest request, HttpServletResponse response)
-	//		throws ExceptionInternalError;	
 	@RequestMapping(value = "/register", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView socialRegistration( 
 			@RequestParam Map<String, String> queryParameters,

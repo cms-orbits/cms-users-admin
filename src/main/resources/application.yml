@@ -19,7 +19,8 @@ spring:
     key: 8e045a51e4b102ea803c06f92841a1fb
     init-vector: RandomInitVector
 cookie-secret: 8e045a51e4b102ea803c06f92841a1fb
-url-redirect-login: http://192.168.187.134:8888/
+url-cms-domain: http://192.168.187.134
+cms-port: 8888
 #---
 
   

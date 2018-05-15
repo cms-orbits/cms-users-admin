@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
 	private String cookieSecret;
 	
-	private String urlRedirectLogin;
+	private String urlCmsDomain;
+	
+	private String cmsPort;
 	
 	public String getCookieSecret() {
 		return cookieSecret;
@@ -20,11 +22,19 @@ public class ApplicationProperties {
 		this.cookieSecret = cookieSecret;
 	}
 	
-	public String getUrlRedirect() {
-		return this.urlRedirectLogin;
+	public String getUrlCmsDomain() {
+		return this.urlCmsDomain;
 	}
 
-	public void setUrlRedirectLogin(String urlRedirectLogin) {
-		this.urlRedirectLogin = urlRedirectLogin;
+	public void setUrlCmsDomain(String urlCmsDomain) {
+		this.urlCmsDomain = urlCmsDomain;
+	}
+
+	public String getCmsPort() {
+		return cmsPort;
+	}
+
+	public void setCmsPort(String cmsPort) {
+		this.cmsPort = cmsPort;
 	}
 }
