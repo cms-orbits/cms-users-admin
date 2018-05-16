@@ -37,7 +37,7 @@ public class User implements Serializable {
 	private long id;
 	
 	@Transient
-	private String redirect;
+	private boolean redirect = true;
 
 	@Column(name="first_name")
 	private String firstName;
@@ -121,11 +121,11 @@ public class User implements Serializable {
 		this.preferredLanguages = preferredLanguages;
 	}
 	
-	public String getRedirect() {
+	public boolean getRedirect() {
 		return redirect;
 	}
 
-	public void setRedirect(String redirect) {
+	public void setRedirect(boolean redirect) {
 		this.redirect = redirect;
 	}
 

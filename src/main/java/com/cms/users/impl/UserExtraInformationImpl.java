@@ -51,13 +51,12 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	@Override
 	public ResponseEntity<ResponseTransfer> doCV(ResponseTransfer file, HttpServletRequest request, HttpServletResponse response)
 		throws ExceptionInternalError {
-		System.out.print(file.getFilename());
 		FileOutputStream outFile = null;
 		
         try {
             // Get the file and save it locally
             //Path path = Paths.get(UPLOADED_FOLDER + file.getFilename());
-            outFile = new FileOutputStream(UPLOADED_FOLDER + file.getFilename());
+            outFile = new FileOutputStream(UPLOADED_FOLDER + file.getFileName());
             outFile.write(file.getFile());
             
         } catch (IOException e) {

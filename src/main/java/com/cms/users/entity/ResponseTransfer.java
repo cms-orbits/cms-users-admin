@@ -1,14 +1,14 @@
 package com.cms.users.entity;
 
 public class ResponseTransfer {
-	private String filename;
+	private String fileName;
 	private byte[] file;
 	
-	public String getFilename() {
-		return filename;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setFilename(String fileName) {
+		this.fileName = fileName;
 	}
 	
 	public byte[] getFile() {
