@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
 	private String cookieSecret;
 	
-	private String urlCmsDomain;
+	private String CmsDomain;
 	
 	private String cmsPort;
 	
@@ -22,12 +22,12 @@ public class ApplicationProperties {
 		this.cookieSecret = cookieSecret;
 	}
 	
-	public String getUrlCmsDomain() {
-		return this.urlCmsDomain;
+	public String getCmsDomain() {
+		return this.CmsDomain;
 	}
 
-	public void setUrlCmsDomain(String urlCmsDomain) {
-		this.urlCmsDomain = urlCmsDomain;
+	public void setUrlCmsDomain(String CmsDomain) {
+		this.CmsDomain = CmsDomain;
 	}
 
 	public String getCmsPort() {

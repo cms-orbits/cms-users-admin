@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cms.service.utilities.Crypto;
 import com.cms.users.ApplicationProperties;
 import com.cms.users.entity.CookieGenerator;
+import com.cms.users.entity.EventPublisher;
 import com.cms.users.entity.Participation;
 import com.cms.users.entity.User;
 import com.cms.users.exception.ExceptionInternalError;
@@ -37,6 +38,9 @@ public class CmsServicesImpl implements CmsServicesInt {
 	
 	@Autowired
 	private ParticipationRepository repoParticipation;
+	
+	@Autowired
+	EventPublisher eventPublisherService;
 	
 	@Override
 	public ResponseEntity<User> login (User user, HttpServletRequest request, HttpServletResponse response)
@@ -84,6 +88,8 @@ public class CmsServicesImpl implements CmsServicesInt {
 			if (repoParticipation.exist(participation)==null)
 				participation = repoParticipation.save(participation);
 			
+			eventPublisherService.sendMessageRegister(userDb.getEmail(), "Register Successful!");
+			
 			userDb.setRedirect(false);
 		}
 		
@@ -97,14 +103,16 @@ public class CmsServicesImpl implements CmsServicesInt {
 			HttpServletResponse response)
 			throws ExceptionInternalError {
 		
+		String port = appProperties.getCmsPort() != null && appProperties.getCmsPort() != "" ? ":" + appProperties.getCmsPort() : "";
 		User userDb = repoUser.findByEmailEquals(multiMap.get("email").get(0));
 
 		Cookie cookie = cookieGenerator.generateCookie(userDb.getUsername(), userDb.getPassword());
 		//cookie.setMaxAge(60 * 24 * 3600);
-		cookie.setDomain(appProperties.getUrlCmsDomain());
+		cookie.setDomain(appProperties.getCmsDomain());
 		cookie.setPath("/");
 		response.addCookie(cookie);
-		return new ModelAndView("redirect:http://" + appProperties.getUrlCmsDomain() + ":" + appProperties.getCmsPort());		
+		
+		return new ModelAndView("redirect:http://" + appProperties.getCmsDomain() + port);		
 	}
 	
 	

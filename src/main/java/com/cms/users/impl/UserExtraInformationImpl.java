@@ -27,9 +27,6 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(UserExtraInformationImpl.class);
 	
 	@Autowired
-	EventPublisher eventPublisherService;
-	
-	@Autowired
 	private UserExtraInformationRepository repo;
 	private static String UPLOADED_FOLDER = "C:\\temp\\";
 	
@@ -44,7 +41,6 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	public ResponseEntity<UserExtraInformation> doCreate(UserExtraInformation userextra, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError {
 		UserExtraInformation e = repo.save(userextra);
-		eventPublisherService.sendMessage();
 		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
 
