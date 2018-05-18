@@ -11,7 +11,7 @@ This application is the result of doing reversing engineering to the Contest Man
 
 ### Configuration file
 
-It's necessary to add some properties to the configuration file before of running the application, this properties are:
+It's necessary to add some properties to the configuration file before of running the application, these properties are:
 
 - Cookie secret key
 - CMS domain
@@ -23,7 +23,7 @@ It's necessary to add some properties to the configuration file before of runnin
 The file is locate in src/main/resources.
 
 #### Cookie secret
-The cookie secret key is a string characters which is used to encrypt a user password. It's mandatory to put the same string that was added at the CMS configuration file.
+The cookie secret key is a string characters which is used to encrypt a user password. It's mandatory to put the same string that was added in CMS configuration file.
 
 
 ```yml
@@ -76,8 +76,6 @@ spring:
 ### RabbitMQ queue and exchange
 
 Once the RabbitMQ connection was established, it's necessary to create into the server the queue so that messages may be sent them after by the worker. Also it's mandatory create a exchange in order to put messages in the queue. 
-
-As same as the database connection it is requeried the connection to 
 
 ```bash
 $ rabbitmqadmin declare queue name=cms-queue
