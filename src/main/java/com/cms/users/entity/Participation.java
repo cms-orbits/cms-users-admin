@@ -32,7 +32,7 @@ public class Participation {
 	//private PGcidr ip;
 	
 	private @Column(name="starting_time")
-	Timestamp  startingTime;
+	Timestamp startingTime = new Timestamp(System.currentTimeMillis());
 	
 	//@Column(name="delay_time")
 	//private Time delayTime;
@@ -40,11 +40,11 @@ public class Participation {
 	//@Column(name="extra_time")
 	//private Time extraTime;
 	
-	private String password;
+	private String password = "";
 	
-	private boolean hidden;
+	private boolean hidden = false;
 	
-	private boolean unrestricted;
+	private boolean unrestricted = false;
 	
 	@Column(name="contest_id")
 	private Long contestId;

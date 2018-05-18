@@ -21,6 +21,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.cms.users.entity.CookieGenerator;
 import com.cms.users.entity.EventPublisher;
 
 @Configuration
@@ -88,17 +89,6 @@ public class Config {
 			jpaProperties.put("org.hibernate.envers.default_catalog",
 					env.getRequiredProperty("spring.db-one.datasource.hibernate.envers.default_catalog"));
 		
-		//jpaProperties.put("hibernate.ejb.naming_strategy",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.naming_strategy"));
-		/*
-		jpaProperties.put("hibernate.ejb.event.post-insert",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.post-insert"));
-		jpaProperties.put("hibernate.ejb.event.post-update",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.post-update"));
-		jpaProperties.put("hibernate.ejb.event.post-delete",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.post-delete"));
-		
-		jpaProperties.put("hibernate.ejb.event.pre-collection-update",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.pre-collection-update"));
-		jpaProperties.put("hibernate.ejb.event.pre-collection-remove",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.pre-collection-remove"));
-		jpaProperties.put("hibernate.ejb.event.pre-collection-recreate",env.getRequiredProperty("spring.db-one.datasource.hibernate.ejb.event.pre-collection-recreate"));
-		 */
-		
 		factoryBean.setJpaProperties(jpaProperties);
 		factoryBean.afterPropertiesSet();
 		return factoryBean;
@@ -121,5 +111,10 @@ public class Config {
 	public EventPublisher eventPublisher(RabbitTemplate rabbitTemplate, TopicExchange senderTopicExchange) {
 		return new EventPublisher(rabbitTemplate, senderTopicExchange);
 	}
+	
+	@Bean
+    public CookieGenerator cookieGenerator() {
+        return new CookieGenerator();
+    }
 
 }
