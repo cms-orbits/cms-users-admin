@@ -77,12 +77,30 @@ spring:
 
 Once the RabbitMQ connection was established, it's necessary to create into the server the queue so that messages may be sent them after by the worker. Also it's mandatory create a exchange in order to put messages in the queue. 
 
-As same as the database connection it is requeried the connection to 
-
 ```bash
 $ rabbitmqadmin declare queue name=cms-queue
 
 $ rabbitmqadmin declare exchange name=cms-exchange
 
 ```
+
+### Externalized Configuration
+
+As it is known spring boot let externalize the application configuration, in order to do that parameters can be injected using the following formats.
+
+ 
+#### Running a jar file
+
+```bash
+$ java -jar users-1.0-SNAPSHOT.jar -spring.db-one.datasource.username=custom_user
+
+```
+#### Running a docker image 
+
+```bash
+$ docker run -t -i -e SPRING_DB_ONE_DATASOURCE_USERNAME='custom_user' springio/users:latest
+
+```
+
+ 
  
