@@ -20,6 +20,7 @@ import net.razorvine.pickle.Opcodes;
 public class CookieGenerator {
 	private String contestSlug = "new_contest1";
 	private String b64CookieSecret;
+	private long epochNow;
 	@Autowired
 	private ApplicationProperties appProperties;
 	private TornadoCookieCodec cookieCoder;
@@ -28,9 +29,17 @@ public class CookieGenerator {
 	}
 
 	@PostConstruct
-	public void populateMovieCache() {
-		//Get app properties
+	public void buildCookieEngine() {
+		this.epochNow = Instant.now().getEpochSecond();
 		
+		//Get app properties
+		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
+		
+		try {
+			cookieCoder = V2TornadoCookieCodec.builder().withSecretKey(b64CookieSecret).build();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private byte[] utf8Bytes(String data) {
@@ -44,21 +53,18 @@ public class CookieGenerator {
 			bos.write(Opcodes.MARK);
 			bos.write(Opcodes.UNICODE);
 			bos.write(utf8Bytes(username));
-			System.out.println(username);
 			bos.write(newLine);
 			bos.write(Opcodes.PUT);
 			bos.write(utf8Bytes("0"));
 			bos.write(newLine);
 			bos.write(Opcodes.UNICODE);
 			bos.write(utf8Bytes(password));
-			System.out.println(password);
 			bos.write(newLine);
 			bos.write(Opcodes.PUT);
 			bos.write(utf8Bytes("1"));
 			bos.write(newLine);
 			bos.write(Opcodes.FLOAT);
 			bos.write(utf8Bytes(timestamp));
-			System.out.println(timestamp);
 			bos.write(newLine);
 			bos.write(Opcodes.TUPLE);
 			bos.write(Opcodes.PUT);
@@ -72,28 +78,13 @@ public class CookieGenerator {
 		return bos.toByteArray();
 	}
 
-	public Cookie generateCookie(String user, String password) {
-		long epochNow = Instant.now().getEpochSecond();
-		
-		byte[] pickledHashBytes = pickle0dumpsCMS(user, password, String.valueOf(epochNow));
+	public Cookie generateCookie(String user, String password) {		
+		byte[] pickledHashBytes = pickle0dumpsCMS(user, password, String.valueOf(this.epochNow));
 		
 		String pickledHashStr = new String(pickledHashBytes, StandardCharsets.UTF_8);
 		
-		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
-		
-		System.out.println("--------- ");
-		System.out.println(pickledHashStr);
-		System.out.println("--------- ");
-		
-		try {
-			cookieCoder = V2TornadoCookieCodec.builder().withTimestamp(epochNow).withSecretKey(b64CookieSecret).build();
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		}
-		
 		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie(contestSlug + "_login", pickledHashStr));
-		Cookie ck = new Cookie(signedCookie.getName(), "\"" + signedCookie.getValue() + "\"");
-		//System.out.println(cookieCoder.);
-		return ck;
+		//Cookie ck = new Cookie(signedCookie.getName(), "\"" + signedCookie.getValue() + "\"");
+		return signedCookie;
 	}
 }
