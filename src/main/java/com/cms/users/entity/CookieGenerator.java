@@ -9,6 +9,7 @@ import java.util.Base64;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cms.users.ApplicationProperties;
@@ -84,7 +85,6 @@ public class CookieGenerator {
 		String pickledHashStr = new String(pickledHashBytes, StandardCharsets.UTF_8);
 		
 		Cookie signedCookie = cookieCoder.encodeCookie(new Cookie(contestSlug + "_login", pickledHashStr));
-		//Cookie ck = new Cookie(signedCookie.getName(), "\"" + signedCookie.getValue() + "\"");
 		return signedCookie;
 	}
 }

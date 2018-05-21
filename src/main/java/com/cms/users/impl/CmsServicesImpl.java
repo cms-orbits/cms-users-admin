@@ -107,9 +107,9 @@ public class CmsServicesImpl implements CmsServicesInt {
 		User userDb = repoUser.findByEmailEquals(multiMap.get("email").get(0));
 
 		Cookie cookie = cookieGenerator.generateCookie(userDb.getUsername(), userDb.getPassword());
+		
 		cookie.setDomain(appProperties.getCmsDomain());
 		cookie.setPath("/");
-		cookie.setVersion(0);
 		response.addCookie(cookie);
 		
 		return new ModelAndView("redirect:http://" + appProperties.getCmsDomain() + port);		

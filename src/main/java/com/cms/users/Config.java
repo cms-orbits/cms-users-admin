@@ -5,10 +5,13 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.hibernate.envers.strategy.ValidityAuditStrategy;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -116,5 +119,15 @@ public class Config {
     public CookieGenerator cookieGenerator() {
         return new CookieGenerator();
     }
+	
+	@Bean
+	public EmbeddedServletContainerCustomizer customCookieProcessor() {
+	    return container -> {
+	        if (container instanceof TomcatEmbeddedServletContainerFactory) {
+	            TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
+	            tomcat.addContextCustomizers(context -> context.setCookieProcessor(new LegacyCookieProcessor()));
+	        }
+	    };
+	}
 
 }
