@@ -14,7 +14,7 @@ jdk:
   - oraclejdk8
 
 script:
-- ./mvn clean package
+- ./mvn package
 - ./mvn docker:build -e
 
 after_success:
