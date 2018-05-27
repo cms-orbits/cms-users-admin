@@ -189,19 +189,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
-			</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
-	    <dependency>
-	        <groupId>com.jossemargt</groupId>
-	        <artifactId>cookie-twist</artifactId>
-	        <version>0.4.0</version>
-	    </dependency>
+
+		<dependency>
+			<groupId>com.jossemargt</groupId>
+			<artifactId>cookie-twist</artifactId>
+			<version>0.4.0</version>
+		</dependency>
 
 	</dependencies>
 
@@ -215,7 +215,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<skip>true</skip>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<fork>false</fork>
@@ -225,6 +224,13 @@
 						<annotationProcessor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</annotationProcessor> 
 						</annotationProcessors> -->
 				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-deploy-plugin</artifactId>
+			    <configuration>
+			        <skip>true</skip>
+			    </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -243,7 +249,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skipTests>${unit-tests.skip}</skipTests>
+					<skipTests>true</skipTests>
 					<excludes>
 						<exclude>**/*IT.java</exclude>
 					</excludes>
