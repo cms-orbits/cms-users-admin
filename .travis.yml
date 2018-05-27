@@ -19,5 +19,5 @@ script:
 
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- export IMAGE_NAME=springio/users
+- export IMAGE_NAME=joelgtsantos/cmsusers
 - docker push $IMAGE_NAME
