@@ -2,13 +2,11 @@ package com.cms.users.entity;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
 import java.time.Instant;
 import java.util.Base64;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,11 +34,7 @@ public class CookieGenerator {
 		//Get app properties
 		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
 		
-		try {
-			cookieCoder = V2TornadoCookieCodec.builder().withSecretKey(b64CookieSecret).build();
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		}
+		cookieCoder = V2TornadoCookieCodec.builder().withSecretKey(b64CookieSecret).build();
 	}
 
 	private byte[] utf8Bytes(String data) {
