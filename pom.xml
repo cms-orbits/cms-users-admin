@@ -26,6 +26,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<tomcat.version>8.5.31</tomcat.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -143,7 +144,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -175,12 +175,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-facebook</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/net.razorvine/pyrolite -->
-		<dependency>
 			<groupId>net.razorvine</groupId>
 			<artifactId>pyrolite</artifactId>
 			<version>4.20</version>
@@ -192,7 +186,6 @@
 			<version>1.3.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
@@ -207,7 +200,7 @@
 	    <dependency>
 	        <groupId>com.jossemargt</groupId>
 	        <artifactId>cookie-twist</artifactId>
-	        <version>0.3.1</version>
+	        <version>0.4.0</version>
 	    </dependency>
 
 	</dependencies>
