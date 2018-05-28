@@ -19,5 +19,7 @@ script:
 
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
 - export IMAGE_NAME=joelgtsantos/cmsusers
+- docker tag $IMAGE_NAME:"latest" $IMAGE_NAME:$TAG
 - docker push $IMAGE_NAME
