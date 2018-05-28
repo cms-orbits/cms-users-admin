@@ -1,4 +1,4 @@
-package com.cms.users.inte;
+package com.joelgtsantos.cmsusers.inte;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cms.users.entity.Contest;
-import com.cms.users.exception.ExceptionInternalError;
+import com.joelgtsantos.cmsusers.entity.Contest;
+import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
 @RequestMapping(value = "/api/contest", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })

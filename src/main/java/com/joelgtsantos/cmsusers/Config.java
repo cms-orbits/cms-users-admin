@@ -1,4 +1,4 @@
-package com.cms.users;
+package com.joelgtsantos.cmsusers;
 
 import java.util.Properties;
 
@@ -24,13 +24,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.cms.users.entity.CookieGenerator;
-import com.cms.users.entity.EventPublisher;
+import com.joelgtsantos.cmsusers.entity.CookieGenerator;
+import com.joelgtsantos.cmsusers.entity.EventPublisher;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "oneEntityManagerFactory", transactionManagerRef = "oneTransactionManager", basePackages = {
-		"com.cms.users" }, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
+		"com.joelgtsantos.cmsusers" }, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
 public class Config {
 	@Resource
 	private Environment env;

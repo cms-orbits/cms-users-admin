@@ -1,4 +1,4 @@
-package com.cms.users;
+package com.joelgtsantos.cmsusers;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

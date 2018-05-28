@@ -1,4 +1,4 @@
-package com.cms.users.exception;
+package com.joelgtsantos.cmsusers.exception;
 
 import java.util.HashMap;
 import java.util.Map;

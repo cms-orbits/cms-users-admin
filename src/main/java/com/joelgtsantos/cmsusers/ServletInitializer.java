@@ -1,4 +1,4 @@
-package com.cms.users;
+package com.joelgtsantos.cmsusers;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

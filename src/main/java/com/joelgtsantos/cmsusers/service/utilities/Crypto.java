@@ -1,4 +1,4 @@
-package com.cms.service.utilities;
+package com.joelgtsantos.cmsusers.service.utilities;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -11,8 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.LoggerFactory;
 
-import com.cms.users.entity.Participation;
-import com.cms.users.entity.User;
+import com.joelgtsantos.cmsusers.entity.Participation;
+import com.joelgtsantos.cmsusers.entity.User;
 
 
 public class Crypto {

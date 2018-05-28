@@ -1,4 +1,4 @@
-package com.cms.users.config.filters;
+package com.joelgtsantos.cmsusers.config.filters;
 
 import java.io.IOException;
 

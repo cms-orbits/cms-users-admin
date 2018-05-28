@@ -1,4 +1,4 @@
-package com.cms.users;
+package com.joelgtsantos.cmsusers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.cms.users.impl;
+package com.joelgtsantos.cmsusers.impl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.cms.users.entity.User;
-import com.cms.users.exception.ExceptionInternalError;
-import com.cms.users.inte.UserInt;
-import com.cms.users.repo.UserRepository;
+import com.joelgtsantos.cmsusers.entity.User;
+import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
+import com.joelgtsantos.cmsusers.inte.UserInt;
+import com.joelgtsantos.cmsusers.repo.UserRepository;
 
 @Component
 public class UserImpl implements UserInt {

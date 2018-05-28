@@ -1,11 +1,11 @@
-package com.cms.users.entity;
+package com.joelgtsantos.cmsusers.entity;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import org.slf4j.LoggerFactory;
 
-import com.cms.service.utilities.Crypto;
+import com.joelgtsantos.cmsusers.service.utilities.Crypto;
 
 public class UserBase {
 	public static org.slf4j.Logger log = LoggerFactory.getLogger(Participation.class);

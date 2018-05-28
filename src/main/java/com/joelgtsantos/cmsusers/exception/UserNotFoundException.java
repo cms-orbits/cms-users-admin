@@ -1,4 +1,4 @@
-package com.cms.users.exception;
+package com.joelgtsantos.cmsusers.exception;
 
 public class UserNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

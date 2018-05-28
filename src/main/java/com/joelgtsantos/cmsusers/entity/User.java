@@ -1,4 +1,4 @@
-package com.cms.users.entity;
+package com.joelgtsantos.cmsusers.entity;
 
 
 import java.io.Serializable;

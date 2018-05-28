@@ -1,4 +1,4 @@
-package com.cms.users.entity;
+package com.joelgtsantos.cmsusers.entity;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +10,7 @@ import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cms.users.ApplicationProperties;
+import com.joelgtsantos.cmsusers.ApplicationProperties;
 import com.jossemargt.cookietwist.tornado.transform.TornadoCookieCodec;
 import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 

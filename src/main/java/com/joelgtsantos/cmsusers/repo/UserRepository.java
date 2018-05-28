@@ -1,4 +1,4 @@
-package com.cms.users.repo;
+package com.joelgtsantos.cmsusers.repo;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cms.users.entity.User;
+import com.joelgtsantos.cmsusers.entity.User;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {

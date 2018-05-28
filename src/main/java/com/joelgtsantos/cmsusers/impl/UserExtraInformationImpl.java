@@ -1,4 +1,4 @@
-package com.cms.users.impl;
+package com.joelgtsantos.cmsusers.impl;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,12 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.cms.users.entity.EventPublisher;
-import com.cms.users.entity.ResponseTransfer;
-import com.cms.users.entity.UserExtraInformation;
-import com.cms.users.exception.ExceptionInternalError;
-import com.cms.users.inte.UserExtraInformationInt;
-import com.cms.users.repo.UserExtraInformationRepository;
+import com.joelgtsantos.cmsusers.entity.ResponseTransfer;
+import com.joelgtsantos.cmsusers.entity.UserExtraInformation;
+import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
+import com.joelgtsantos.cmsusers.inte.UserExtraInformationInt;
+import com.joelgtsantos.cmsusers.repo.UserExtraInformationRepository;
 
 @Component
 public class UserExtraInformationImpl implements UserExtraInformationInt {

@@ -1,4 +1,4 @@
-package com.cms.users.impl;
+package com.joelgtsantos.cmsusers.impl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.cms.users.entity.Contest;
-import com.cms.users.exception.ExceptionInternalError;
-import com.cms.users.inte.ContestInt;
-import com.cms.users.repo.ContestRepository;
+import com.joelgtsantos.cmsusers.entity.Contest;
+import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
+import com.joelgtsantos.cmsusers.inte.ContestInt;
+import com.joelgtsantos.cmsusers.repo.ContestRepository;
 
 @Component
 public class ContestImpl implements ContestInt {

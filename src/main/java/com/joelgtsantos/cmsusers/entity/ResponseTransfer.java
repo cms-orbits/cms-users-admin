@@ -1,4 +1,4 @@
-package com.cms.users.entity;
+package com.joelgtsantos.cmsusers.entity;
 
 public class ResponseTransfer {
 	private String fileName;

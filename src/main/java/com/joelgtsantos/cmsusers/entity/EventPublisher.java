@@ -1,4 +1,4 @@
-package com.cms.users.entity;
+package com.joelgtsantos.cmsusers.entity;
 
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

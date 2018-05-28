@@ -1,4 +1,4 @@
-package com.cms.service;
+package com.joelgtsantos.cmsusers.service;
 
 import java.io.Serializable;
 import javax.persistence.EntityManager;

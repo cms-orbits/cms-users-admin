@@ -1,4 +1,4 @@
-package com.cms.users.inte;
+package com.joelgtsantos.cmsusers.inte;
 
 import java.util.Map;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cms.users.entity.User;
-import com.cms.users.exception.ExceptionInternalError;
+import com.joelgtsantos.cmsusers.entity.User;
+import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
 @RequestMapping(value = "/api/", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
