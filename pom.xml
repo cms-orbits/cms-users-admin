@@ -12,7 +12,6 @@
 		<name>${project.groupId}</name>
 	</organization>
 
-
 	<name>USERS</name>
 	<description>project by Spring Boot</description>
 
@@ -97,7 +96,6 @@
 			</activation>
 		</profile>
 	</profiles>
-
 
 	<dependencies>
 		<dependency>
