@@ -41,6 +41,9 @@ The domain name is necessary to redirect a login request to CMS home page.
 #### CMS Port
 A port number is required only if the CMS Server is reached by IP route instead of using a sub-domain 
 
+```yml
+  cms-port: 8888
+```
 
 #### Database connection
 
