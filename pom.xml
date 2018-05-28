@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.cms</groupId>
-	<artifactId>users</artifactId>
+	<groupId>com.joelgtsantos</groupId>
+	<artifactId>cmsusers</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -46,7 +46,7 @@
 
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-		<docker.image.prefix>springio</docker.image.prefix>
+		<docker.image.prefix>joelgtsantos</docker.image.prefix>
 	</properties>
 
 	<!-- Integration tests profile -->
@@ -55,7 +55,7 @@
 			<id>integration</id>
 			<properties>
 				<unit-tests.skip>true</unit-tests.skip>
-				<integration-tests.skip>false</integration-tests.skip>
+				<integration-tests.skip>true</integration-tests.skip>
 				<javadoc.opts>-Xdoclint:none</javadoc.opts>
 			</properties>
 			<activation>
@@ -249,7 +249,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skipTests>true</skipTests>
+					<skipTests>${integration-tests.skip}</skipTests>
 					<excludes>
 						<exclude>**/*IT.java</exclude>
 					</excludes>
@@ -321,7 +321,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.2.3</version>
 				<configuration>
-					<imageName>joelgtsantos/cmsusers</imageName>
+					<imageName>${project.artifactId}/${docker.image.prefix}</imageName>
 					<dockerDirectory>src/main/docker</dockerDirectory>
 					<resources>
 						<resource>
