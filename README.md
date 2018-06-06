@@ -1,4 +1,8 @@
 # cms-users-admin
+
+[![Build Status](https://travis-ci.org/joelgtsantos/cms-users-admin.svg?branch=master)](https://travis-ci.org/joelgtsantos/cms-users-admin)
+
+
 This application is the result of doing reversing engineering to the Contest Management System(CMS) and provides a backend layer for controlling the register process of new users. 
 
 
