@@ -53,8 +53,6 @@ public class Config {
 		factoryBean.setDataSource(oneDataSource());
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
 		factoryBean.setPackagesToScan(Config.class.getPackage().getName()); 
-		// ".entity");
-		//factoryBean.setPackagesToScan("com.corpo.mos");
 
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", env.getRequiredProperty("spring.db-one.datasource.hibernate.dialect"));
