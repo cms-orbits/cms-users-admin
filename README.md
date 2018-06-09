@@ -1,4 +1,8 @@
 # cms-users-admin
+
+[![Build Status](https://travis-ci.org/joelgtsantos/cms-users-admin.svg?branch=master)](https://travis-ci.org/joelgtsantos/cms-users-admin)
+
+
 This application is the result of doing reversing engineering to the Contest Management System(CMS) and provides a backend layer for controlling the register process of new users. 
 
 
@@ -41,6 +45,9 @@ The domain name is necessary to redirect a login request to CMS home page.
 #### CMS Port
 A port number is required only if the CMS Server is reached by IP route instead of using a sub-domain 
 
+```yml
+  cms-port: 8888
+```
 
 #### Database connection
 

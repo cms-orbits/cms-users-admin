@@ -1,0 +1,27 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+  - secure: "encrypted-dockerhub-username"
+  - secure: "encrypted-dockerhub-password"
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+script:
+- echo docker --version
+- mvn package
+- mvn docker:build -e
+
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- BRANCH=${TRAVIS_BRANCH//[^[:alnum:]]/}
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo ${BRANCH,,}; fi`
+- export IMAGE_NAME=joelgtsantos/cmsusers
+- docker tag $IMAGE_NAME:"latest" $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME

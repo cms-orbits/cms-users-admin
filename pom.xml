@@ -3,15 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.cms</groupId>
-	<artifactId>users</artifactId>
+	<groupId>com.joelgtsantos</groupId>
+	<artifactId>cmsusers</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<organization>
 		<name>${project.groupId}</name>
 	</organization>
-
 
 	<name>USERS</name>
 	<description>project by Spring Boot</description>
@@ -26,6 +25,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<tomcat.version>8.5.31</tomcat.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -45,7 +45,7 @@
 
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-		<docker.image.prefix>springio</docker.image.prefix>
+		<docker.image.prefix>joelgtsantos</docker.image.prefix>
 	</properties>
 
 	<!-- Integration tests profile -->
@@ -54,7 +54,7 @@
 			<id>integration</id>
 			<properties>
 				<unit-tests.skip>true</unit-tests.skip>
-				<integration-tests.skip>false</integration-tests.skip>
+				<integration-tests.skip>true</integration-tests.skip>
 				<javadoc.opts>-Xdoclint:none</javadoc.opts>
 			</properties>
 			<activation>
@@ -96,7 +96,6 @@
 			</activation>
 		</profile>
 	</profiles>
-
 
 	<dependencies>
 		<dependency>
@@ -143,7 +142,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -175,12 +173,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-facebook</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/net.razorvine/pyrolite -->
-		<dependency>
 			<groupId>net.razorvine</groupId>
 			<artifactId>pyrolite</artifactId>
 			<version>4.20</version>
@@ -192,23 +184,22 @@
 			<version>1.3.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
-			</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
-	    <dependency>
-	        <groupId>com.jossemargt</groupId>
-	        <artifactId>cookie-twist</artifactId>
-	        <version>0.3.1</version>
-	    </dependency>
+
+		<dependency>
+			<groupId>com.jossemargt</groupId>
+			<artifactId>cookie-twist</artifactId>
+			<version>0.4.0</version>
+		</dependency>
 
 	</dependencies>
 
@@ -221,7 +212,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -232,6 +222,13 @@
 						<annotationProcessor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</annotationProcessor> 
 						</annotationProcessors> -->
 				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-deploy-plugin</artifactId>
+			    <configuration>
+			        <skip>true</skip>
+			    </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -250,7 +247,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skipTests>${unit-tests.skip}</skipTests>
+					<skipTests>${integration-tests.skip}</skipTests>
 					<excludes>
 						<exclude>**/*IT.java</exclude>
 					</excludes>
