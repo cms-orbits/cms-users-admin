@@ -99,7 +99,7 @@ As it is known spring boot let externalize the application configuration, in ord
 #### Running a jar file
 
 ```bash
-$ java -jar users-1.0-SNAPSHOT.jar -spring.db-one.datasource.username=custom_user
+$ java -jar cmsusers-1.0-SNAPSHOT.jar --spring.db-one.datasource.username=custom_user
 
 ```
 #### Running a docker image 
