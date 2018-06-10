@@ -17,7 +17,7 @@ import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 import net.razorvine.pickle.Opcodes;
 
 public class CookieGenerator {
-	private String contestSlug = "new_contest1";
+	private String contestSlug;
 	private String b64CookieSecret;
 	private long epochNow;
 	@Autowired
@@ -33,6 +33,7 @@ public class CookieGenerator {
 		
 		//Get app properties
 		this.b64CookieSecret = Base64.getEncoder().encodeToString(utf8Bytes(this.appProperties.getCookieSecret()));
+		this.contestSlug = this.appProperties.getContestSlug();
 		
 		cookieCoder = V2TornadoCookieCodec.builder().withSecretKey(b64CookieSecret).build();
 	}

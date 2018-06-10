@@ -14,6 +14,8 @@ public class ApplicationProperties {
 	
 	private String cmsPort;
 	
+	private String contestSlug;
+	
 	public String getCookieSecret() {
 		return cookieSecret;
 	}
@@ -36,5 +38,13 @@ public class ApplicationProperties {
 
 	public void setCmsPort(String cmsPort) {
 		this.cmsPort = cmsPort;
+	}
+
+	public String getContestSlug() {
+		return contestSlug;
+	}
+
+	public void setContestSlug(String contestSlug) {
+		this.contestSlug = contestSlug;
 	}
 }

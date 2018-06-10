@@ -18,6 +18,7 @@ spring:
 cookie-secret: 8e045a51e4b102ea803c06f92841a1fb
 cms-domain: 192.168.187.134
 cms-port: 8888
+contest-slug: new_contest1
 #---
 
   
