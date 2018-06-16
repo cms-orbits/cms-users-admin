@@ -82,7 +82,7 @@ spring:
 
 ### RabbitMQ queue and exchange
 
-Once the RabbitMQ connection was established, it's necessary to create into the server the queue so that messages may be sent them after by the worker. Also it's mandatory create a exchange in order to put messages in the queue. 
+Once the RabbitMQ connection was established, it's necessary to create into the server the queue so that messages may sent them after by the worker. Also it's mandatory create a exchange in order to put messages in the queue. 
 
 ```bash
 $ rabbitmqadmin declare queue name=cms-queue

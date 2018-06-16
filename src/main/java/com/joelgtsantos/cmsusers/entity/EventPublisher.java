@@ -20,11 +20,10 @@ public class EventPublisher {
     this.topicExchange = topicExchange;
   }
 
-  public void sendMessageRegister(String email, String text) {
+  public void sendMessageRegister(Email email) {
 	this.statusMessage = false;
 	String routingKey = "user.created";
-	String message = "{\"email\":,\"" + email + "\", \"body\":" + text + "\"}";
-    rabbitTemplate.convertAndSend(topicExchange.getName(), routingKey, message);
+    rabbitTemplate.convertAndSend(topicExchange.getName(), routingKey, email);
     this.statusMessage = true;
   }
   

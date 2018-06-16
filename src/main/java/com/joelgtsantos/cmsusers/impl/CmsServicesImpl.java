@@ -19,6 +19,7 @@ import com.joelgtsantos.cmsusers.entity.CookieGenerator;
 import com.joelgtsantos.cmsusers.entity.EventPublisher;
 import com.joelgtsantos.cmsusers.entity.Participation;
 import com.joelgtsantos.cmsusers.entity.User;
+import com.joelgtsantos.cmsusers.entity.Email;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 import com.joelgtsantos.cmsusers.inte.CmsServicesInt;
 import com.joelgtsantos.cmsusers.repo.ParticipationRepository;
@@ -70,17 +71,15 @@ public class CmsServicesImpl implements CmsServicesInt {
 			User user = new User();
 			user.setFirstName(multiMap.get("firstName").get(0));
 			user.setLastName(multiMap.get("lastName").get(0));
-		    user.setUserame(multiMap.get("username").get(0));
+		    user.setUsername(multiMap.get("username").get(0));
 		    user.setEmail(multiMap.get("email").get(0));
 			user.setTimezone("");
 			user.setPreferredLanguages("");
-			
+		
 			//Default password
 			user.setPassword("uZd3dj0$cpeuw12pqz");
 			userDb = repoUser.save(user);
 			
-			//participation.contestId = 2;
-            //participation.userId = data.id;
 			Participation participation = new Participation();
 			participation.setContestId(new Long(2));
 			participation.setUserId(new Long(user.getId()));
@@ -88,7 +87,14 @@ public class CmsServicesImpl implements CmsServicesInt {
 			if (repoParticipation.exist(participation)==null)
 				participation = repoParticipation.save(participation);
 			
-			eventPublisherService.sendMessageRegister(userDb.getEmail(), "Register Successful!");
+			Email email = new Email(user.getFirstName() + " " + user.getLastName(), 
+								"cms@gmail.com",
+								user.getEmail(),
+								"Signup CMS - Completed",
+								"Welcome to CMS Coding Challenge"
+								);
+			
+			eventPublisherService.sendMessageRegister(email);
 			
 			userDb.setRedirect(false);
 		}
