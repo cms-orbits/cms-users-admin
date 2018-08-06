@@ -1,4 +1,4 @@
-package com.joelgtsantos.cmsusers.config;
+package com.joelgtsantos.cmsusers.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

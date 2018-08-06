@@ -1,9 +1,7 @@
-package com.joelgtsantos.cmsusers.config;
+package com.joelgtsantos.cmsusers;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-
-import com.joelgtsantos.cmsusers.Application;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 

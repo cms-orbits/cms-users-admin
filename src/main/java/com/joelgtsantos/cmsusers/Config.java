@@ -1,4 +1,4 @@
-package com.joelgtsantos.cmsusers.config;
+package com.joelgtsantos.cmsusers;
 
 import java.util.Properties;
 
@@ -30,8 +30,7 @@ import com.joelgtsantos.cmsusers.entity.EventPublisher;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "oneEntityManagerFactory", transactionManagerRef = "oneTransactionManager", basePackages = {
-		"com.joelgtsantos.cmsusers" }, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
+@EnableJpaRepositories(entityManagerFactoryRef = "oneEntityManagerFactory", transactionManagerRef = "oneTransactionManager", basePackages = {"com.joelgtsantos.cmsusers"}, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
 public class Config {
 	@Resource
 	private Environment env;

@@ -10,7 +10,7 @@ import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.joelgtsantos.cmsusers.config.ApplicationProperties;
+import com.joelgtsantos.cmsusers.security.ApplicationProperties;
 import com.jossemargt.cookietwist.tornado.transform.TornadoCookieCodec;
 import com.jossemargt.cookietwist.tornado.transform.impl.V2TornadoCookieCodec;
 

@@ -14,7 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.joelgtsantos.cmsusers.config.ApplicationProperties;
 import com.joelgtsantos.cmsusers.entity.CookieGenerator;
 import com.joelgtsantos.cmsusers.entity.EventPublisher;
 import com.joelgtsantos.cmsusers.entity.Participation;
@@ -24,6 +23,7 @@ import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 import com.joelgtsantos.cmsusers.inte.CmsServicesInt;
 import com.joelgtsantos.cmsusers.repo.ParticipationRepository;
 import com.joelgtsantos.cmsusers.repo.UserRepository;
+import com.joelgtsantos.cmsusers.security.ApplicationProperties;
 import com.joelgtsantos.cmsusers.service.utilities.Crypto;
 
 @Component

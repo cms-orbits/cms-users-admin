@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.joelgtsantos.cmsusers.config;
+package com.joelgtsantos.cmsusers.security;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.security.authentication.AuthenticationProvider;

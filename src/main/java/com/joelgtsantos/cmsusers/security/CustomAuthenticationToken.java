@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.joelgtsantos.cmsusers.config;
+package com.joelgtsantos.cmsusers.security;
 
 import java.util.Collection;
 
