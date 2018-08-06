@@ -1,5 +1,5 @@
 server:
-  contextPath: /app
+  contextPath: /cmsusers
   port: 8080
 spring:
   application:
@@ -20,16 +20,18 @@ cms-domain: 192.168.187.134
 cms-port: 8888
 contest-slug: new_contest1
 #---
-
+logging:
+  level:
+    org.springframework.security: DEBUG
   
 ---
 spring:
   profiles: development
   db-one:
     datasource:
-      url: jdbc:postgresql://192.168.187.134:5432/cmsdb
-      username: postgres
-      password: alex77
+      url: jdbc:postgresql://192.168.7.10:5432/cmsdb
+      username: cmsuser
+      password: notsecure
       driver-class-name:  org.postgresql.Driver
       test-on-borrow: false
       validation-query: SELECT 1  
@@ -54,3 +56,29 @@ spring:
     port: 5672
     username: joel
     password: joel1
+    
+ # Spring Security configuration
+security:
+  google:
+    client:
+      clientId: 729418284493-jngld0miti1tth7m71ngc18c8jkbn2ft.apps.googleusercontent.com
+      clientSecret: qW_Qd_INYv-kkl6VkqapHBCW
+      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+      scope: profile
+    resource:
+      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+      preferTokenInfo: false
+      
+  github:
+    client:
+      clientId: 84321d8de8002c6f4e85
+      clientSecret: 161b45035a0e5dd135cead566c919f3553d7dd78
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://api.github.com/user

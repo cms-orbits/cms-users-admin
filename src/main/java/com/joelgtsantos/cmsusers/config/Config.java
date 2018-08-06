@@ -1,4 +1,4 @@
-package com.joelgtsantos.cmsusers;
+package com.joelgtsantos.cmsusers.config;
 
 import java.util.Properties;
 

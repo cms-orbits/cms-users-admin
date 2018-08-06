@@ -22,6 +22,8 @@ It's necessary to add some properties to the configuration file before of runnin
 - CMS port
 - Database connection
 - Message broker
+- OAuth
+- Proxy considerations
 
 
 The file is locate in src/main/resources.
@@ -50,7 +52,6 @@ A port number is required only if the CMS Server is reached by IP route instead 
 ```
 
 #### Database connection
-
 To set up a connection to the CMS a database connection is mandatory. It's described into the application properties file.
 
 ```yml
@@ -65,29 +66,44 @@ spring:
 ```
 
 #### RabbitMQ connection
-
-
 As same as the database the RabbitQM connection depends on multiple fields.
 *For RabbitQM a few extra steps are required, see next section.
 
 ```yml
 ---
-spring:
-  rabbitmq:
-    host: 192.168.187.133
-    port: 5672
-    username: rabbit
-    password: rabbit1
+security:
+  google:
+    client:
+      clientId: 729418284493-jngld0miti1tth7m71ngc18c8jkbn2ft.apps.googleusercontent.com
+      clientSecret: qW_Qd_INYv-kkl6VkqapHBCW
 ```
 
-### RabbitMQ queue and exchange
 
-Once the RabbitMQ connection was established, it's necessary to create into the server the queue so that messages may sent them after by the worker. Also it's mandatory create a exchange in order to put messages in the queue. 
+#### Security
+[CMS-users-admin](https://github.com/joelgtsantos/cms-users-admin) uses OAuth protocol to allow authenticated access to its resources by establishing a connection to a specific social network provider.
 
-```bash
-$ rabbitmqadmin declare queue name=cms-queue
+```yml
+---
+security:
+  google:
+    client:
+      clientId: 
+      clientSecret: 
+  ...
+  ...   
+  github:
+    client:
+      clientId: 
+      clientSecret: 
+```
 
-$ rabbitmqadmin declare exchange name=cms-exchange
+#### Proxy considerations
+If you are using a http-proxy in between to redirect all the HTTP requests to [CMS-users-admin](https://github.com/joelgtsantos/cms-users-admin) make sure to include the parameter authorization in each request.
+
+
+```http
+
+Authorization: Bearer eyJh123tokentest
 
 ```
 
@@ -109,5 +125,4 @@ $ docker run -t -i -e SPRING_DB_ONE_DATASOURCE_USERNAME='custom_user' springio/u
 
 ```
 
- 
  
