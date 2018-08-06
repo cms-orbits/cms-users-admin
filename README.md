@@ -70,7 +70,7 @@ As same as the database the RabbitQM connection depends on multiple fields.
 *For RabbitQM a few extra steps are required, see next section.
 
 ```yml
----	---
+----
 spring:	security:
   rabbitmq:	  google:
     host: 192.168.187.133	    client:
