@@ -14,7 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.joelgtsantos.cmsusers.ApplicationProperties;
+import com.joelgtsantos.cmsusers.config.ApplicationProperties;
 import com.joelgtsantos.cmsusers.entity.CookieGenerator;
 import com.joelgtsantos.cmsusers.entity.EventPublisher;
 import com.joelgtsantos.cmsusers.entity.Participation;

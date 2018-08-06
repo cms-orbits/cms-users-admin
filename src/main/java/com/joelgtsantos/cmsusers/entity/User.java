@@ -31,6 +31,10 @@ public class User implements Serializable {
 	public User() {
 	}
 	
+	public User(String name) {
+		this.username = name;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
     @SequenceGenerator(sequenceName = "users_id_seq", allocationSize = 1, name = "USER_SEQ")
