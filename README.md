@@ -71,11 +71,11 @@ As same as the database the RabbitQM connection depends on multiple fields.
 
 ```yml
 ----
-spring:	security:
-  rabbitmq:	  google:
-    host: 192.168.187.133	    client:
-    port: 5672	      clientId: 729418284493-jngld0miti1tth7m71ngc18c8jkbn2ft.apps.googleusercontent.com
-    username: rabbit	      clientSecret: qW_Qd_INYv-kkl6VkqapHBCW
+spring:
+  rabbitmq:
+    host: 192.168.187.133
+    port: 5672
+    username: rabbit
     password: rabbit1	
 ```
 
