@@ -16,7 +16,7 @@ import com.joelgtsantos.cmsusers.entity.UserExtraInformation;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/user/extra", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/api/v1/user/extra", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface UserExtraInformationInt {
 	
 	/**

@@ -60,14 +60,11 @@ public class Crypto {
 			
 			//Combine IV and encrypted part
 			byte[] c = new byte[ivl + encrypted.length];
-			//System.out.println(Base64.getEncoder().encodeToString(this.getRandomKey()));
-			//System.out.println("pas 4");
 			System.arraycopy(ivKey, 0, c, 0, ivl);
 			System.arraycopy(encrypted, 0, c, ivl, encrypted.length);
 			
 			newPassword = Base64.getEncoder().encodeToString(c).replace('+', '-').replace('/', '_').replace('=', '.');
 			
-			System.out.println(newPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

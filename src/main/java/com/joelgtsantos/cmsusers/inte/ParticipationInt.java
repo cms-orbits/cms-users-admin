@@ -15,7 +15,7 @@ import com.joelgtsantos.cmsusers.entity.Participation;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/participation", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/api/v1/participation", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface ParticipationInt {
 	
 	/**
