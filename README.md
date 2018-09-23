@@ -70,12 +70,13 @@ As same as the database the RabbitQM connection depends on multiple fields.
 *For RabbitQM a few extra steps are required, see next section.
 
 ```yml
----
-security:
-  google:
-    client:
-      clientId: 729418284493-jngld0miti1tth7m71ngc18c8jkbn2ft.apps.googleusercontent.com
-      clientSecret: qW_Qd_INYv-kkl6VkqapHBCW
+----
+spring:
+  rabbitmq:
+    host: 192.168.187.133
+    port: 5672
+    username: rabbit
+    password: rabbit1	
 ```
 
 
