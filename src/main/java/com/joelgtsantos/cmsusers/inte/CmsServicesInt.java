@@ -1,5 +1,6 @@
 package com.joelgtsantos.cmsusers.inte;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import com.joelgtsantos.cmsusers.entity.User;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/v1", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/api/v1/auth", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface CmsServicesInt {
 	
 	/*
@@ -36,8 +37,7 @@ public interface CmsServicesInt {
 	 * */
 	@RequestMapping(value = "/register", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> socialRegister( 
-			@RequestParam Map<String, String> queryParameters,
-			@RequestParam MultiValueMap<String, String> multiMap,
+			Principal principal,
 			HttpServletRequest request,
 			HttpServletResponse response) 
 	            		throws ExceptionInternalError;

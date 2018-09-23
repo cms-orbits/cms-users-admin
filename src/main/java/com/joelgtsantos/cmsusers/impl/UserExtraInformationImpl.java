@@ -2,6 +2,8 @@ package com.joelgtsantos.cmsusers.impl;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 
 import com.joelgtsantos.cmsusers.entity.ResponseTransfer;
@@ -30,16 +33,33 @@ public class UserExtraInformationImpl implements UserExtraInformationInt {
 	private static String UPLOADED_FOLDER = "C:\\temp\\";
 	
 	@Override
-	public Iterable<UserExtraInformation> getUsers() {
-		// TODO Auto-generated method stub
-		//log.debug("[{}]", user);
-		return repo.findAll();
+	public ResponseEntity<UserExtraInformation> getUser(
+			Principal principal, 
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+				
+		Map details = (Map)((OAuth2Authentication)principal).getUserAuthentication().getDetails();
+        String email = (String)details.get("email");        
+        
+		UserExtraInformation e = repo.findByEmail(email);
+		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<UserExtraInformation> doCreate(UserExtraInformation userextra, HttpServletRequest request, HttpServletResponse response)
+	public ResponseEntity<UserExtraInformation> doCreate(
+			UserExtraInformation userextra,
+			Principal principal,
+			HttpServletRequest request, 
+			HttpServletResponse response)
 			throws ExceptionInternalError {
-		UserExtraInformation e = repo.save(userextra);
+		
+		Map details = (Map)((OAuth2Authentication)principal).getUserAuthentication().getDetails();
+		
+        String email = (String)details.get("email");
+		
+		UserExtraInformation e = repo.findByEmail(email);
+		userextra.setId(e.getId());
+		e = repo.save(userextra);
 		return new ResponseEntity<>(e, HttpStatus.CREATED);
 	}
 

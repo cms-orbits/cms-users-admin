@@ -44,7 +44,11 @@ public class UserExtraInformation implements Serializable {
 	
 	private byte[] cv;
 	
-	private String name;
+	@Column(name="file_name")
+	private String fileName;
+	
+	@Column(name="file_name_web")
+	private String fileNameWeb;
 	
 	/*public long getId() {
 		return id;
@@ -102,12 +106,20 @@ public class UserExtraInformation implements Serializable {
 		this.cv = cv;
 	}
 
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public String getFileNameWeb() {
+		return fileNameWeb;
+	}
+
+	public void setFileNameWeb(String fileNameWeb) {
+		this.fileNameWeb = fileNameWeb;
 	}
 
 }

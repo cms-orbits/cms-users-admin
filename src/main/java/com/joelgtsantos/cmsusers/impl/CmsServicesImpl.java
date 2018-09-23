@@ -1,5 +1,7 @@
 package com.joelgtsantos.cmsusers.impl;
 
+import java.security.Principal;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,19 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.joelgtsantos.cmsusers.entity.CookieGenerator;
+import com.joelgtsantos.cmsusers.entity.Email;
 import com.joelgtsantos.cmsusers.entity.EventPublisher;
 import com.joelgtsantos.cmsusers.entity.Participation;
 import com.joelgtsantos.cmsusers.entity.User;
-import com.joelgtsantos.cmsusers.entity.Email;
+import com.joelgtsantos.cmsusers.entity.UserExtraInformation;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 import com.joelgtsantos.cmsusers.inte.CmsServicesInt;
 import com.joelgtsantos.cmsusers.repo.ParticipationRepository;
+import com.joelgtsantos.cmsusers.repo.UserExtraInformationRepository;
 import com.joelgtsantos.cmsusers.repo.UserRepository;
 import com.joelgtsantos.cmsusers.security.ApplicationProperties;
 import com.joelgtsantos.cmsusers.service.utilities.Crypto;
@@ -39,6 +44,9 @@ public class CmsServicesImpl implements CmsServicesInt {
 	
 	@Autowired
 	private ParticipationRepository repoParticipation;
+	
+	@Autowired
+	private UserExtraInformationRepository repoExtraInfo;
 	
 	@Autowired
 	EventPublisher eventPublisherService;
@@ -59,20 +67,24 @@ public class CmsServicesImpl implements CmsServicesInt {
 
 	@Override
 	public ResponseEntity<User> socialRegister(
-			Map<String, String> queryParameters,
-			MultiValueMap<String, String> multiMap,
+			Principal principal,
 			HttpServletRequest request,
 			HttpServletResponse response) throws ExceptionInternalError {
+
+		Map details = (Map)((OAuth2Authentication)principal).getUserAuthentication().getDetails();
+        String userEmail = (String)details.get("email");
+        String userNames = (String)details.get("name");
+        String userName = userEmail.replaceAll("[^A-Za-z0-9]", "");
 		
-        User userDb = repoUser.findByEmailEquals(multiMap.get("email").get(0));
+        User userDb = repoUser.findByEmailEquals(userEmail);
 
 		//Verify if user exist
 		if (userDb == null) {
 			User user = new User();
-			user.setFirstName(multiMap.get("firstName").get(0));
-			user.setLastName(multiMap.get("lastName").get(0));
-		    user.setUsername(multiMap.get("username").get(0));
-		    user.setEmail(multiMap.get("email").get(0));
+			user.setFirstName(userNames);
+			user.setLastName("");
+		    user.setUsername(userName);
+		    user.setEmail(userEmail);
 			user.setTimezone("");
 			user.setPreferredLanguages("");
 		
@@ -80,13 +92,19 @@ public class CmsServicesImpl implements CmsServicesInt {
 			user.setPassword("uZd3dj0$cpeuw12pqz");
 			userDb = repoUser.save(user);
 			
+			//Due to it's first time login into the system a new participation is created
 			Participation participation = new Participation();
-			participation.setContestId(new Long(2));
-			participation.setUserId(new Long(user.getId()));
+			participation.setContestId(repoParticipation.findOne());
+			participation.setUserId(user.getId());
+			repoParticipation.save(participation);
 			
-			if (repoParticipation.exist(participation)==null)
-				participation = repoParticipation.save(participation);
+			//Due to it's first time login into the system a new profile is created
+			UserExtraInformation profile = new UserExtraInformation();
+			profile.setId(user.getId());
+			profile.setBirthdate(new Date());
+			repoExtraInfo.save(profile);
 			
+			//Send email after register process
 			Email email = new Email(user.getFirstName() + " " + user.getLastName(), 
 								"cms@gmail.com",
 								user.getEmail(),
@@ -98,6 +116,14 @@ public class CmsServicesImpl implements CmsServicesInt {
 			
 			userDb.setRedirect(false);
 		}
+		
+		
+		//Set cookie to a request 
+		Cookie cookie = cookieGenerator.generateCookie(userDb.getUsername(), userDb.getPassword());
+		
+		cookie.setDomain(appProperties.getCmsDomain());
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		
 		return new ResponseEntity<>(userDb, HttpStatus.CREATED);		
 	}

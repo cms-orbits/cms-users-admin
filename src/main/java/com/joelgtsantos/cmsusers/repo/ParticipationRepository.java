@@ -18,6 +18,9 @@ public interface ParticipationRepository extends PagingAndSortingRepository<Part
 	@Query("select e from Participation e where e.contestId=:#{#participation.contestId} and e.userId=:#{#participation.userId}")
 	Participation exist(@Param("participation") Participation participation);
 	
-    List<Participation> findAll();;
+	@Query("select id from Participation where id = 1")
+	Long findOne();
+	
+    List<Participation> findAll();
 
 }
