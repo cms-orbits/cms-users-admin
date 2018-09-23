@@ -9,6 +9,7 @@ import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.hibernate.envers.strategy.ValidityAuditStrategy;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
@@ -29,8 +30,7 @@ import com.joelgtsantos.cmsusers.entity.EventPublisher;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "oneEntityManagerFactory", transactionManagerRef = "oneTransactionManager", basePackages = {
-		"com.joelgtsantos.cmsusers" }, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
+@EnableJpaRepositories(entityManagerFactoryRef = "oneEntityManagerFactory", transactionManagerRef = "oneTransactionManager", basePackages = {"com.joelgtsantos.cmsusers"}, repositoryFactoryBeanClass = org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean.class)
 public class Config {
 	@Resource
 	private Environment env;
@@ -102,14 +102,20 @@ public class Config {
 		return DataSourceBuilder.create().build();
 	}
 	
+	@Bean
+	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+	    return new Jackson2JsonMessageConverter();
+	}
+		
 
 	@Bean
 	public TopicExchange senderTopicExchange() {
-		return new TopicExchange("eventExchange");
+		return new TopicExchange("cmsExchange");
 	}
 	
 	@Bean
 	public EventPublisher eventPublisher(RabbitTemplate rabbitTemplate, TopicExchange senderTopicExchange) {
+	    rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());	 
 		return new EventPublisher(rabbitTemplate, senderTopicExchange);
 	}
 	

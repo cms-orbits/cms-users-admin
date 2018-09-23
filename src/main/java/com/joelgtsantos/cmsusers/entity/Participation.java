@@ -1,7 +1,5 @@
 package com.joelgtsantos.cmsusers.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +9,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 /**
 * The persistent class for the PARTICIPATIONS database table.
 * 
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="PARTICIPATIONS")
 @NamedQuery(name="Participation.findAll", query="SELECT t FROM Participation t")
+@TypeDef(name="interval", typeClass = Interval.class)
 public class Participation {
 	private static final long serialVersionUID = 1L;
 
@@ -29,16 +31,13 @@ public class Participation {
     @SequenceGenerator(sequenceName = "participations_id_seq", allocationSize = 1, name = "USER_SEQ")
 	private long id;
 	
-	//private PGcidr ip;
+	@Column(name="delay_time")
+	@Type(type = "interval")    
+	private Integer delayTime = 0;
 	
-	private @Column(name="starting_time")
-	Timestamp startingTime = new Timestamp(System.currentTimeMillis());
-	
-	//@Column(name="delay_time")
-	//private Time delayTime;
-	
-	//@Column(name="extra_time")
-	//private Time extraTime;
+	@Column(name="extra_time")
+	@Type(type = "interval")    
+	private Integer extraTime = 0;
 	
 	private String password = "";
 	
@@ -71,29 +70,29 @@ public class Participation {
 		this.ip = ip;
 	}*/
 
-	public Timestamp getStartingTime() {
+	/*public Instant getStartingTime() {
 		return startingTime;
 	}
 
-	public void setStartingTime(Timestamp startingTime) {
+	public void setStartingTime(Instant startingTime) {
 		this.startingTime = startingTime;
+	}*/
+
+	public Integer getDelayTime() {
+		return this.delayTime;
 	}
 
-	/*public Time getDelayTime() {
-		return delayTime;
-	}
-
-	public void setDelayTime(Time delayTime) {
+	public void setDelayTime(Integer delayTime) {
 		this.delayTime = delayTime;
 	}
 
-	public Time getExtraTime() {
-		return extraTime;
+	public Integer getExtraTime() {
+		return this.extraTime;
 	}
 
-	public void setExtraTime(Time extraTime) {
+	public void setExtraTime(Integer extraTime) {
 		this.extraTime = extraTime;
-	}*/
+	}
 
 	public String getPassword() {
 		return password;

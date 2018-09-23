@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.joelgtsantos.cmsusers.entity.User;
+import com.joelgtsantos.cmsusers.entity.UserDTO;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
@@ -18,6 +19,12 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 	@Query("select e from User e where e.id=?#{principal.user.id}")
 	User findByPrincipal();
 	
-    List<User> findAll();;
-
+    List<User> findAll();
+    
+    User findById(Long id);
+    
+    //Add field username
+    @Query(value = "SELECT NEW com.joelgtsantos.cmsusers.entity.UserDTO(u.id, u.firstName, u.username)" +
+            "FROM User u WHERE u.id = ?1")
+   UserDTO findUserById(Long id);
 }

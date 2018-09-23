@@ -31,6 +31,10 @@ public class User implements Serializable {
 	public User() {
 	}
 	
+	public User(String name) {
+		this.username = name;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
     @SequenceGenerator(sequenceName = "users_id_seq", allocationSize = 1, name = "USER_SEQ")
@@ -68,7 +72,7 @@ public class User implements Serializable {
 		return this.firstName;
 	}
 
-	public void setLastName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -76,7 +80,7 @@ public class User implements Serializable {
 		return this.lastName;
 	}
 
-	public void setFirstName(String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	
@@ -84,7 +88,7 @@ public class User implements Serializable {
 		return this.username;
 	}
 
-	public void setUserame(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 	
