@@ -1,14 +1,9 @@
 server:
   contextPath: /cmsusers
-  port: 8080
+  port: 8081
 spring:
   application:
-    name: users
-  #autoconfigure:
-    #exclude:
-      #- org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      #- org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-      #- org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+    name: cmsusers
   data:
     rest:
       base-path: /api
@@ -16,8 +11,8 @@ spring:
   jmx:
     enabled: false
 cookie-secret: 8e045a51e4b102ea803c06f92841a1fb
-cms-domain: 192.168.187.134
-cms-port: 8888
+cms-domain: localhost
+cms-port: 3000
 contest-slug: new_contest1
 #---
 logging:
@@ -82,3 +77,7 @@ security:
       clientAuthenticationScheme: form
     resource:
       userInfoUri: https://api.github.com/user
+      preferTokenInfo: false
+  oauth2:
+    resource:
+      userInfoUri: BUGFIX
