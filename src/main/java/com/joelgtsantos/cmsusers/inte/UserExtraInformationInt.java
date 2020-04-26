@@ -18,9 +18,9 @@ import com.joelgtsantos.cmsusers.entity.UserExtraInformation;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/v1/users/extra", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/v1/users/extra", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface UserExtraInformationInt {
-	
+
 	/**
 	 *
 	 * @param ID
@@ -30,12 +30,12 @@ public interface UserExtraInformationInt {
 	 * @throws ErrorInternoException
 	 */
 	@RequestMapping(value = {"",""},method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserExtraInformation> getUser(
-    		Principal principal,
-    		HttpServletRequest request, 
-    		HttpServletResponse response);
-	
-	
+	public ResponseEntity<UserExtraInformation> getUser(
+			Principal principal,
+			HttpServletRequest request,
+			HttpServletResponse response);
+
+
 	/**
 	 *
 	 * @param user
@@ -49,10 +49,10 @@ public interface UserExtraInformationInt {
 	ResponseEntity<UserExtraInformation> doCreate(
 			@RequestBody UserExtraInformation userextra,
 			Principal principal,
-			HttpServletRequest request, 
+			HttpServletRequest request,
 			HttpServletResponse response)
 			throws ExceptionInternalError;
-	 
+
 
 	/**
 	 *
