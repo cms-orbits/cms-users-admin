@@ -20,9 +20,9 @@ import com.joelgtsantos.cmsusers.entity.UserDTO;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/v1/users", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/v1/users", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface UserInt {
-	
+
 	/**
 	 *
 	 * @param ID
@@ -33,8 +33,8 @@ public interface UserInt {
 	 */
 	@RequestMapping(value = {"","/"},method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody  Iterable<User> getUsers(HttpServletRequest request);
-	
-	
+
+
 	/**
 	 *
 	 * @param ID
@@ -46,7 +46,7 @@ public interface UserInt {
 	@RequestMapping(value = "/{id}" ,method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User getUser(@PathVariable("id") long id,
 									 HttpServletRequest request);
-	
+
 	/**
 	 *
 	 * @param InfoUsersRequestDTO
@@ -57,9 +57,9 @@ public interface UserInt {
 	 */
 	@Transactional(readOnly = false)
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
-	@ResponseBody  
-	public Set<UserDTO> getInfoUsers(@RequestBody InfoUsersRequestDTO infoUsersRequestDTO, 
-									  HttpServletRequest request, 
+	@ResponseBody
+	public Set<UserDTO> getInfoUsers(@RequestBody InfoUsersRequestDTO infoUsersRequestDTO,
+									  HttpServletRequest request,
 									  HttpServletResponse response)
 	throws ExceptionInternalError;
 }
