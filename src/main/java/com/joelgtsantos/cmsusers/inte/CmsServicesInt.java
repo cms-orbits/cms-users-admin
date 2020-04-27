@@ -21,9 +21,9 @@ import com.joelgtsantos.cmsusers.entity.User;
 import com.joelgtsantos.cmsusers.exception.ExceptionInternalError;
 
 @RestController
-@RequestMapping(value = "/api/v1/auth", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/v1/auth", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public interface CmsServicesInt {
-	
+
 	/*
 	 * Login
 	 * */
@@ -31,22 +31,22 @@ public interface CmsServicesInt {
 	@RequestMapping(value = {"","/login"},method= RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response)
 			throws ExceptionInternalError;
-	
+
 	/*
 	 * Register and login with social accounts
 	 * */
 	@RequestMapping(value = "/register", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> socialRegister( 
+	public ResponseEntity<User> socialRegister(
 			Principal principal,
 			HttpServletRequest request,
-			HttpServletResponse response) 
+			HttpServletResponse response)
 	            		throws ExceptionInternalError;
-	
+
 	@RequestMapping(value = "/redirect", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView redirect(
 			@RequestParam Map<String, String> queryParameters,
 			@RequestParam MultiValueMap<String, String> multiMap,
-			HttpServletResponse response) 
+			HttpServletResponse response)
 	            		throws ExceptionInternalError;
-	
+
 }

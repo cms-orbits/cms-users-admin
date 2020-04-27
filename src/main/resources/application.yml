@@ -6,7 +6,7 @@ spring:
     name: cmsusers
   data:
     rest:
-      base-path: /api
+      base-path: /
   profiles.active: development
   jmx:
     enabled: false
@@ -17,8 +17,8 @@ contest-slug: new_contest1
 #---
 logging:
   level:
-    org.springframework.security: DEBUG
-  
+    org.springframework.security: INFO
+
 ---
 spring:
   profiles: development
@@ -29,7 +29,7 @@ spring:
       password: notsecure
       driver-class-name:  org.postgresql.Driver
       test-on-borrow: false
-      validation-query: SELECT 1  
+      validation-query: SELECT 1
       hibernate:
         #default_catalog: danos
         default_schema: public
@@ -51,7 +51,7 @@ spring:
     port: 5672
     username: joel
     password: joel1
-    
+
  # Spring Security configuration
 security:
   google:
@@ -67,7 +67,7 @@ security:
     resource:
       userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
       preferTokenInfo: false
-      
+
   github:
     client:
       clientId: 84321d8de8002c6f4e85
