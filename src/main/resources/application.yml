@@ -24,14 +24,13 @@ spring:
   profiles: development
   db-one:
     datasource:
-      url: jdbc:postgresql://192.168.7.10:5432/cmsdb
+      url: jdbc:postgresql://192.168.7.13:5432/cmsdb
       username: cmsuser
       password: notsecure
       driver-class-name:  org.postgresql.Driver
       test-on-borrow: false
       validation-query: SELECT 1
       hibernate:
-        #default_catalog: danos
         default_schema: public
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
@@ -40,17 +39,16 @@ spring:
         envers:
           default_catalog: cmsdb
           storeDataAtDelete : true
-          #default_schema : danos
         ejb:
           naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
         hbm2ddl:
           auto: update
               #create-drop, validate, update
   rabbitmq:
-    host: 192.168.187.134
+    host: 192.168.7.13
     port: 5672
-    username: joel
-    password: joel1
+    username: orbitsuser
+    password: notsecure
 
  # Spring Security configuration
 security:

@@ -21,7 +21,7 @@ import org.postgresql.util.PGInterval;
  * cms-users-admin
  * 2018
  */
-public class Interval implements UserType {
+public class IntUserType implements UserType {
     private static final int[] SQL_TYPES = { Types.OTHER };
 
     @Override

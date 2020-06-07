@@ -19,7 +19,7 @@ import org.hibernate.annotations.TypeDef;
 @Entity
 @Table(name="PARTICIPATIONS")
 @NamedQuery(name="Participation.findAll", query="SELECT t FROM Participation t")
-@TypeDef(name="interval", typeClass = Interval.class)
+@TypeDef(name="interval", typeClass = IntUserType.class)
 public class Participation {
 	private static final long serialVersionUID = 1L;
 
