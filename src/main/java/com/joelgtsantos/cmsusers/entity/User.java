@@ -13,6 +13,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -25,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Entity
 @EntityListeners(UserBase.class)
 @Table(name="USERS")
+@TypeDef(name="StringUserType", typeClass = StringUserType.class)
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +62,8 @@ public class User implements Serializable {
 	private String timezone;
 	
 	@Column(name="preferred_languages")
-	private String preferredLanguages;
+	@Type(type = "StringUserType")
+	private String[] preferredLanguages;
 
 	public long getId() {
 		return id;
@@ -117,11 +122,11 @@ public class User implements Serializable {
 		this.timezone = timezone;
 	}
 
-	public String getPreferredLanguages() {
+	public String[] getPreferredLanguages() {
 		return preferredLanguages;
 	}
 
-	public void setPreferredLanguages(String preferredLanguages) {
+	public void setPreferredLanguages(String[] preferredLanguages) {
 		this.preferredLanguages = preferredLanguages;
 	}
 	

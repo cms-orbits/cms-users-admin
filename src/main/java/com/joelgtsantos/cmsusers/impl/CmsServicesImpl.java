@@ -86,7 +86,8 @@ public class CmsServicesImpl implements CmsServicesInt {
 		    user.setUsername(userName);
 		    user.setEmail(userEmail);
 			user.setTimezone("");
-			user.setPreferredLanguages("");
+			String[] prefLanguages = {""};
+			user.setPreferredLanguages(prefLanguages);
 		
 			//Default password
 			user.setPassword("uZd3dj0$cpeuw12pqz");

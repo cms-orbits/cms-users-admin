@@ -17,11 +17,11 @@ public class UserBase {
 	 */
 	@PrePersist
 	public void userPrePersist(User user) {	
-		user.setPassword(Crypto.encryptPlain(user.getPassword()));
+		user.setPassword(Crypto.encryptPlain(user.getPassword().replaceAll("plaintext:", "")));
 	}
 	
 	@PreUpdate
 	public void userPreUpdate(User user) {
-		user.setPassword(Crypto.encryptPlain(user.getPassword()));
+		user.setPassword(Crypto.encryptPlain(user.getPassword().replaceAll("plaintext:", "")));
 	}
 }
